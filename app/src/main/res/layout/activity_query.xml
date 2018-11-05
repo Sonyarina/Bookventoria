@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Sonia M on 9/25/18 7:15 PM for educational purposes. The images and/or icons that
+  ~  were not created by me were obtained with permission from Freepik.com and/or
+  ~  flaticon.com.
+  ~  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
+  ~  relevant to this project. Any additional guidance for specific methods is outlined in
+  ~  the javadocs for those specific methods.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_background"
+    tools:context=".QueryActivity">
+
+    <!--Toolbar View-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/query_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title="@string/app_name"
+        app:titleMarginBottom="@dimen/narrow_activity_margin" />
+
+    <!--ProgressBar View-->
+    <ProgressBar
+        android:id="@+id/progress_bar_view"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <!-- Empty view for the list -->
+    <LinearLayout
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/no_books_image"
+            android:layout_width="@dimen/empty_view_image_size"
+            android:layout_height="@dimen/empty_view_image_size"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/query_no_results_image_description"
+            android:src="@drawable/query_no_results" />
+
+        <TextView
+            android:id="@+id/empty_title_text"
+            style="@style/empty_view_text"
+            android:paddingTop="16dp"
+            android:text="@string/empty_view_query_title_text"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/empty_subtitle_text"
+            style="@style/empty_view_text"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="8dp"
+            android:textAppearance="?android:textAppearanceMedium"
+            tools:text="@string/empty_view_low_inventory" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/query_description_text_view"
+        style="@style/DataSummaryHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/query_toolbar"
+        android:visibility="gone"
+        tools:text="@string/query_low_inventory_header" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/query_description_text_view"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/list_item_divider_height"
+        android:focusable="true"
+        android:listSelector="@android:color/transparent"
+        android:padding="@dimen/narrow_activity_margin"
+        tools:listitem="@layout/list_item" />
+
+</RelativeLayout>

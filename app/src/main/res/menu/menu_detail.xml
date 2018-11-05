@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Options menu for the Detail Activity -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".BookDetailActivity">
+
+    <!--Add new book button/ menu item-->
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/baseline_add_white_24"
+        android:title="@string/menu_add_new_book_label"
+        app:showAsAction="ifRoom" />
+
+    <!--Delete button / menu item-->
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@drawable/baseline_delete_white_24"
+        android:title="@string/menu_action_delete"
+        app:showAsAction="always" />
+
+    <!--Close button / menu item-->
+    <item
+        android:id="@+id/action_close"
+        android:icon="@drawable/outline_close_white_24"
+        android:title="@string/menu_action_close"
+        app:showAsAction="ifRoom" />
+
+    <!--Edit button/ menu item. Doesn't have to show due to fab button-->
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/baseline_edit_white_24"
+        android:title="@string/menu_action_edit"
+        app:showAsAction="never" />
+</menu>

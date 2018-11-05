@@ -1,0 +1,645 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/secondaryColor</item>
+        <item name="colorPrimaryDark">@color/secondaryDarkColor</item>
+        <item name="android:colorSecondary">@color/primaryColor</item>
+        <item name="android:colorAccent">@color/primaryColor</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Theme of the book edit activity -->
+    <style name="EditorTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/editActivityPrimaryColor</item>
+        <item name="colorPrimaryDark">@color/editActivityDarkPrimaryColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Theme of the book edit activity -->
+    <style name="EditorTheme2" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/secondaryDarkColor</item>
+        <item name="colorPrimaryDark">@color/secondaryDarkColor</item>
+        <item name="android:colorSecondary">@color/primaryColor</item>
+        <item name="android:colorAccent">@color/secondaryColor</item>
+        <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Theme of the app bar  -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:background">@color/secondaryColor</item>
+    </style>
+
+    <!-- Theme of the app bar (Popup Overlay) -->
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <!-- Theme of the toolbar in detail activity -->
+    <style name="DetailToolbar" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:background">@color/secondaryColor</item>
+    </style>
+
+    <!-- Theme of the book detail activity -->
+    <style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/secondaryColor</item>
+        <item name="colorPrimaryDark">@color/secondaryDarkColor</item>
+        <item name="android:colorSecondary">@color/primaryColor</item>
+        <item name="android:colorAccent">@color/primaryColor</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="empty_view_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Style for a category in the editor -->
+    <style name="EditorSections">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="EditorTitleText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/default_activity_margin</item>
+        <item name="android:paddingRight">@dimen/default_activity_margin</item>
+        <item name="android:paddingTop">@dimen/default_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+    </style>
+
+    <style name="DetailTitleText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/default_activity_margin</item>
+        <item name="android:paddingRight">@dimen/default_activity_margin</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:background">@color/secondaryColor</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="DetailTitleText2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:editTextColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="EditorTitleInputText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/activity_margin</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:background">@color/white_background</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:editTextColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="EditorTitleText2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/narrow_activity_margin</item>
+        <item name="android:paddingRight">@dimen/narrow_activity_margin</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:editTextColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="DetailTitleText_Center">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/default_activity_margin</item>
+        <item name="android:paddingRight">@dimen/default_activity_margin</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="EditorToolbarTitleText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/default_activity_margin</item>
+        <item name="android:paddingRight">@dimen/default_activity_margin</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+    </style>
+
+    <style name="EditorHeadings">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/default_activity_margin</item>
+        <item name="android:paddingRight">@dimen/default_activity_margin</item>
+        <item name="android:paddingTop">@dimen/default_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+    </style>
+
+    <style name="EditorTextInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/editor_field_margin_top</item>
+        <item name="android:paddingBottom">@dimen/editor_field_margin_bottom</item>
+        <item name="android:paddingLeft">@dimen/default_activity_margin</item>
+        <item name="android:paddingRight">@dimen/default_activity_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@color/white_background</item>
+    </style>
+
+    <style name="EditorTextInputColumn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/editor_field_margin_top</item>
+        <item name="android:paddingBottom">@dimen/editor_field_margin_bottom</item>
+        <item name="android:paddingLeft">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingRight">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@color/white_background</item>
+    </style>
+
+    <style name="EditorFields">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">@dimen/default_activity_margin</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginTop">@dimen/editor_field_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/editor_field_margin_bottom</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:color">@color/secondaryDarkColor</item>
+    </style>
+
+    <style name="EditorInstructions">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/default_activity_margin</item>
+        <item name="android:paddingRight">@dimen/default_activity_margin</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:color">@color/secondaryDarkColor</item>
+    </style>
+
+    <!-- Style for linear layout rows -->
+    <style name="DetailRows">
+        <item name="android:radius">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginLeft">@dimen/default_activity_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_activity_margin</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <!-- Style for a category in the detail view activity -->
+    <style name="DetailSections">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="DetailSections2">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">#8b8989</item>
+    </style>
+
+    <style name="DetailSections3">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:paddingTop">@dimen/activity_horizontal_margin</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/secondaryColor</item>
+        <item name="android:background">@color/white_background</item>
+        <item name="android:layout_marginTop">@dimen/divider_size</item>
+    </style>
+
+    <style name="DetailSections4">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/divider_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">#8b8989</item>
+    </style>
+
+    <style name="SupplierDetails">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/divider_size</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">#8b8989</item>
+    </style>
+
+    <style name="DetailIcons">
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginTop">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="DetailHeadings">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/default_activity_margin</item>
+        <item name="android:layout_marginTop">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="DetailMiniHeadings">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_activity_margin</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="DetailMiniHeadings2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/activity_margin</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="DetailMiniHeadings3">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <style name="DetailFields">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:color">#000000</item>
+    </style>
+
+    <style name="DetailFields2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:color">#000000</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <style name="SupplierFields">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:color">#000000</item>
+    </style>
+
+    <style name="EditorFields2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginTop">@dimen/editor_field_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/editor_field_margin_bottom</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:color">#000000</item>
+    </style>
+
+    <style name="EditorFields3">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/activity_margin</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:color">#000000</item>
+    </style>
+
+    <style name="Detail_Fields">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:color">#000000</item>
+    </style>
+
+    <style name="listview_name_price">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/narrow_activity_margin</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="listview_name_price1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="listview_quantity_row">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/default_activity_margin</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingLeft">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="listview_quantity_row1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:paddingRight">@dimen/narrow_activity_margin</item>
+        <item name="android:textColor">#747a7e</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="linear_layout_sections">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/activity_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_margin</item>
+        <item name="android:layout_marginTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/activity_margin</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <style name="linear_layout_sections2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/activity_margin</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <style name="linear_layout_sections_editor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/activity_margin</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:paddingTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <style name="divider_gray">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">@dimen/default_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/default_activity_margin</item>
+        <item name="android:background">@android:color/darker_gray</item>
+    </style>
+
+    <style name="CounterLinearLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/extra_narrow_activity_margin</item>
+    </style>
+
+    <style name="CounterAdjustButtons">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_marginTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CounterLinearLayout2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/extra_narrow_activity_margin</item>
+    </style>
+
+    <style name="CounterAdjustButtons2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="CounterQuantityText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="spinnerItemStyle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle">
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="DataSummary">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/extra_narrow_activity_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:color">#000000</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="DataSummaryHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/activity_margin</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:color">#000000</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_marginLeft">@dimen/activity_margin</item>
+    </style>
+
+    <style name="FragmentDataSummaryHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/activity_margin</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/activity_margin</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:color">#000000</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="SupplierDataSummaryHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/activity_margin</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/activity_margin</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:color">#000000</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="SupplierDetailParagraphs">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/narrow_activity_margin</item>
+        <item name="android:paddingBottom">@dimen/narrow_activity_margin</item>
+        <item name="android:layout_marginBottom">@dimen/divider_size</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/activity_margin</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <style name="GenreHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/activity_margin</item>
+        <item name="android:paddingLeft">@dimen/activity_margin</item>
+        <item name="android:paddingRight">@dimen/narrow_activity_margin</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:color">#000000</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="BottomNavButtons">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:color">@color/grey_text</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="TabNavLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
+</resources>

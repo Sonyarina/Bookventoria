@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><!--Vertical Linear Layout containing Header view for ListView-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_book_list_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/main_toolbar"
+    android:layout_marginTop="@dimen/extra_narrow_activity_margin"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/fragment_book_list">
+
+    <!--TextView Below Inventory Summary Area and above ListView-->
+    <TextView
+        style="@style/DataSummaryHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:clickable="false"
+        android:text="@string/inventory_summary_footer" />
+</LinearLayout>

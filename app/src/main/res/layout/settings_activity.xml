@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tips and guidance for creating this item received from Udacity lesson on
+SharedPreferences -->
+
+<!-- Layout for Settings Activity, containing a Preference Fragment -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.bookventoria.SettingsActivity">
+
+    <!--Toolbar View-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/settings_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primaryColor"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title="@string/settings_title"
+        app:titleMarginBottom="@dimen/narrow_activity_margin"
+        app:titleTextAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+
+    <fragment
+        android:id="@+id/settings_options"
+        android:name="com.example.android.bookventoria.SettingsActivity$BooksPreferenceFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

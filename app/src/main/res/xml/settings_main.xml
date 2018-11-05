@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Sonia M on 10/1/18 9:58 PM for educational purposes. Tips and guidance obtained in
+   Udacity lessons involving Earthquake app
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_title">
+
+    <ListPreference
+        android:defaultValue="@string/settings_order_by_default"
+        android:entries="@array/settings_order_by_labels"
+        android:entryValues="@array/settings_order_by_values"
+        android:key="@string/settings_order_by_key"
+        android:summary="@string/settings_order_by_book_id_label"
+        android:title="@string/settings_order_by_label" />
+
+    <ListPreference
+        android:defaultValue="@string/settings_sort_direction_default"
+        android:entries="@array/settings_sort_direction_labels"
+        android:entryValues="@array/settings_sort_direction_values"
+        android:key="@string/settings_sort_direction_key"
+        android:summary="@string/settings_sort_direction_default"
+        android:title="@string/settings_sort_direction_label" />
+
+</PreferenceScreen>

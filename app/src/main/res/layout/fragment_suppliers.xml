@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_background"
+    tools:context=".SuppliersFragment">
+
+    <!--ProgressBar View-->
+    <ProgressBar
+        android:id="@+id/progress_bar_view"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <!-- Empty view for the list -->
+    <LinearLayout
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/no_books_image"
+            android:layout_width="@dimen/empty_view_image_size"
+            android:layout_height="@dimen/empty_view_image_size"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/empty_view_suppliers_image_description"
+            android:src="@drawable/empty_box_2" />
+
+        <TextView
+            android:id="@+id/empty_title_text"
+            style="@style/empty_view_text"
+            android:paddingTop="16dp"
+            android:text="@string/empty_view_suppliers_big"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/empty_subtitle_text"
+            style="@style/empty_view_text"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="8dp"
+            android:text="@string/empty_view_suppliers_subtitle"
+            android:textAppearance="?android:textAppearanceMedium" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/suppliers_header_text"
+        style="@style/DataSummaryHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_margin"
+        android:paddingRight="@dimen/activity_margin"
+        android:text="@string/fragment_suppliers_text_header"
+        android:visibility="gone"/>
+
+    <!--ListView containing Suppliers Name and Phone Numbers-->
+    <ListView
+        android:id="@+id/suppliers_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/suppliers_header_text"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/list_item_divider_height"
+        android:focusable="true"
+        android:listSelector="@android:color/transparent"
+        android:paddingBottom="@dimen/divider_size"
+        android:paddingLeft="@dimen/narrow_activity_margin"
+        android:paddingRight="@dimen/narrow_activity_margin"
+        android:paddingTop="@dimen/divider_size"
+        tools:listitem="@layout/supplier_list_item" />
+</RelativeLayout>

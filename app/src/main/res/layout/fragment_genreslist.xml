@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--Layout for Genres Fragment-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_background"
+    android:orientation="vertical">
+
+    <!--TextView Header-->
+    <TextView
+        style="@style/GenreHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_genres_text_header" />
+
+    <!--GridView containing GenresList Items from ArrayList -->
+    <GridView
+        android:id="@+id/grid_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:columnWidth="0dp"
+        android:horizontalSpacing="@dimen/grid_view_horizontal_padding"
+        tools:numColumns="2"
+        android:paddingBottom="@dimen/divider_size"
+        android:paddingLeft="@dimen/narrow_activity_margin"
+        android:paddingRight="@dimen/extra_narrow_activity_margin"
+        android:paddingTop="@dimen/activity_margin"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/grid_view_vertical_padding"
+        tools:listitem="@layout/gridview_list_item" />
+</LinearLayout>

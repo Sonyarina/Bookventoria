@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><!--Tips and guidance for this color state list were obtained on Stack Overflow:
+https://stackoverflow.com/questions/34562117/how-do-i-change-the-color-of-icon-of-the-selected
+-tab-of-tablayout -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/white" android:state_selected="true" />
+    <item android:color="#99ffffff" />
+</selector>

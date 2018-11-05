@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Supplier Detail Page
+  -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/supplier_info_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/narrow_activity_margin"
+        android:orientation="vertical">
+
+        <!--Supplier Name-->
+        <TextView
+            android:id="@+id/supplier_name"
+            style="@style/SupplierDetails"
+            android:layout_marginBottom="@dimen/divider_size"
+            android:background="@color/white_background"
+            android:drawableBottom="@drawable/supplier_detail1"
+            android:drawablePadding="@dimen/activity_margin"
+            android:padding="@dimen/activity_margin"
+            tools:text="@string/editor_activity_supplier_name_sample" />
+
+        <!--Supplier Phone Number-->
+        <TextView
+            android:id="@+id/call_now_button"
+            style="@style/SupplierDataSummaryHeading"
+            android:layout_marginTop="@dimen/divider_size"
+            android:background="@color/white_background"
+            android:drawableLeft="@drawable/baseline_local_phone_black_24"
+            android:drawablePadding="@dimen/activity_margin"
+            android:drawableStart="@drawable/baseline_local_phone_black_24"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/supplier_call_now_button" />
+
+        <TextView
+            android:id="@+id/supplier_phone"
+            style="@style/SupplierDataSummaryHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/divider_size"
+            android:background="@color/white_background"
+            android:drawableLeft="@drawable/transparent"
+            android:drawablePadding="@dimen/activity_margin"
+            android:drawableStart="@drawable/transparent"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/narrow_activity_margin"
+            android:textColor="@color/secondaryColor"
+            android:textStyle="bold"
+            tools:text="@string/editor_activity_supplier_phone_sample" />
+
+        <TextView
+            style="@style/SupplierDataSummaryHeading"
+            android:layout_marginTop="@dimen/divider_size"
+            android:background="@color/white_background"
+            android:drawableLeft="@drawable/baseline_update_black_24"
+            android:drawablePadding="@dimen/activity_margin"
+            android:drawableStart="@drawable/baseline_update_black_24"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/supplier_latest_activity" />
+
+        <TextView
+            android:id="@+id/supplier_summary_text_view"
+            style="@style/SupplierDetailParagraphs"
+            tools:text="@string/supplier_latest_activity_summary_bad_1_sample" />
+
+        <TextView
+            android:id="@+id/view_all_books_from_supplier"
+            style="@style/SupplierDataSummaryHeading"
+            android:layout_marginBottom="@dimen/divider_size"
+            android:layout_marginTop="@dimen/divider_size"
+            android:background="@color/white_background"
+            android:clickable="true"
+            android:drawableLeft="@drawable/baseline_list_black_24"
+            android:drawablePadding="@dimen/activity_margin"
+            android:drawableStart="@drawable/baseline_list_black_24"
+            android:focusable="true"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/supplier_view_other_books" />
+
+        <TextView
+            style="@style/SupplierDataSummaryHeading"
+            android:layout_marginTop="@dimen/divider_size"
+            android:background="@color/white_background"
+            android:drawableLeft="@drawable/outline_info_black_24"
+            android:drawablePadding="@dimen/activity_margin"
+            android:drawableStart="@drawable/outline_info_black_24"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/supplier_tips" />
+
+        <TextView
+            android:id="@+id/helpful_tip_summary_text"
+            style="@style/SupplierDetailParagraphs"
+            android:layout_weight="1"
+            android:text="@string/supplier_helpful_tips_text" />
+    </LinearLayout>
+</ScrollView>

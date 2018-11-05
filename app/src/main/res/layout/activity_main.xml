@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Sonia M on 9/25/18 7:15 PM for educational purposes. The images and/or icons that
+  ~  were not created by me were obtained with permission from Freepik.com and/or
+  ~  flaticon.com. Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
+  ~  relevant to this project. Any additional guidance for bottom navigation bar found in article:
+  ~  "Using Bottom Navigation View – Android Design Support Library" at
+  ~  http://blog.iamsuleiman.com/using-bottom-navigation-view-android-design-support-library/
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!--Toolbar View-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/secondaryColor"
+        android:minHeight="?attr/actionBarSize"
+        app:elevation="4dp"
+        android:theme="@style/DetailToolbar"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/app_name"
+        app:titleMarginBottom="@dimen/narrow_activity_margin"
+        app:titleMarginStart="@dimen/activity_margin"/>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/suppliers_detail_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:visibility="gone"
+        tools:context=".MainActivity" />
+
+    <LinearLayout
+        android:id="@+id/main_tabs_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:visibility="visible" />
+
+        <!-- Layout tabs layout -->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_nav_height"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white_background"
+            android:elevation="@dimen/bottom_nav_elevation"
+            android:theme="@style/TabNavLayout"
+            app:tabBackground="@color/secondaryDarkColor"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/secondaryDarkColor"
+            app:tabIndicatorHeight="@dimen/tab_indicator_h"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/text_inactive">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/view_books_tab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/bottom_nav_books"
+                tools:icon="@drawable/books1" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/view_genres_tab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/bottom_nav_genres"
+                tools:icon="@drawable/category" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/view_suppliers_tab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/bottom_nav_suppliers"
+                tools:icon="@drawable/network" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/view_reports_tab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/bottom_nav_reports"
+                tools:icon="@drawable/report" />
+        </android.support.design.widget.TabLayout>
+    </LinearLayout>
+</LinearLayout>

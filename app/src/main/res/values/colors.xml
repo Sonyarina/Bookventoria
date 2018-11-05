@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Sonia M on 9/25/18 6:25 PM for educational purposes. The images and/or icons that
+  ~  were not created by me were obtained with permission from Freepik.com and/or
+  ~  flaticon.com.
+  ~  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
+  ~  relevant to this project. Any additional guidance for specific methods is outlined in
+  ~  the javadocs for those specific methods.
+  -->
+
+<resources>
+    <!--Main Theme Colors-->
+    <!--    <color name="colorPrimary">#546e7a</color>
+        <color name="colorPrimaryDark">#29434e</color>
+        <color name="colorAccent">#819ca9</color>
+        <color name="primaryTextColor">#ffffff</color>
+        <color name="subtitleTextColor">#A2AAB0</color>
+        <color name="secondaryDarkColor">#29434e</color>
+        <color name="primary_dark_material_light">#0288d1</color>
+        <color name="primary_material_light">#03a9f4</color>
+        <color name="accent_material_light">#ffab40</color>-->
+
+    <color name="nullFieldColor">#fcdde7</color>
+
+    <!--Book Editor Activity Colors-->
+    <color name="editActivityPrimaryColor">#546e7a</color>
+    <color name="editActivityDarkPrimaryColor">#29434e</color>
+    <!--
+        <color name="secondaryAccent">#f5cb10</color>
+
+        <color name="primaryColor">#44bba4</color>
+        <color name="primaryLightColor">#7beed5</color>
+        <color name="primaryDarkColor">#008a75</color>
+        <color name="secondaryColor">#79745c</color>
+        <color name="secondaryLightColor">#a8a389</color>
+        <color name="secondaryDarkColor">#4d4932</color>
+        <color name="primaryTextColor">#000000</color>
+        <color name="secondaryTextColor">#ffffff</color>
+
+    -->
+
+    <color name="grey_text">#808080</color>
+    <color name="white">#ffffff</color>
+    <color name="white_background">#ffffff</color>
+    <color name="default_background">#FAFAFA</color>
+    <color name="grey_background">#eef2f2</color>
+    <color name="cart_background">#f1e245</color>
+
+    <!--Tab Color States-->
+    <color name="tab_inactive">#808080</color>
+    <color name="tab_active">#44bba4</color>
+    <color name="text_inactive">#99ffffff</color>
+
+    <!--Theme Colors-->
+    <color name="primaryColor">#79745c</color>
+    <color name="primaryLightColor">#a8a389</color>
+    <color name="primaryDarkColor">#4d4932</color>
+    <color name="secondaryColor">#44bba4</color>
+    <color name="secondaryLightColor">#7beed5</color>
+    <color name="secondaryDarkColor">#008a75</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="colorAccent">#44bba4</color>
+    <color name="secondaryAccent">#79745c</color>
+    <color name="lightColorAccent">#CDE77F</color>
+    <color name="lightSecondaryColorAccent">#CDE77F</color>
+
+    <!--Colors for different categories-->
+    <color name="genre_unknown">#79745c</color>
+    <color name="genre_nonfiction">#1e1e24</color>
+    <color name="genre_fiction">#44bba4</color>
+    <color name="genre_mystery">#987284</color>
+    <color name="genre_children">#c4af9a</color>
+    <color name="genre_history">#81ae9d</color>
+    <color name="genre_finance">#aedcb0</color>
+    <color name="genre_scifi">#019ded</color>
+    <color name="genre_romance">#ee6352</color>
+    <color name="genre_home_food">#704e2e</color>
+    <color name="genre_teens">#961180</color>
+    <color name="genre_other">#6689a1</color>
+</resources>

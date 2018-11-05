@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Sonia M on 10/5/18 10:21 PM for educational purposes. The images and/or icons that
+  ~  were not created by me were obtained with permission from Freepik.com and/or
+  ~  flaticon.com.  -->
+
+<!-- Layout for a single grid item in the list of genres -->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/grid_item_cardview_width"
+    android:layout_height="@dimen/grid_item_cardview_height"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:id="@+id/gridview_contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/genre"
+        tools:background="@color/primaryTextColor"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/activity_margin">
+
+        <ImageView
+            android:id="@+id/gridview_genre_image"
+            android:layout_width="@dimen/grid_item_genre_image"
+            android:layout_height="@dimen/grid_item_genre_image"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/list_item_image_description"
+            tools:src="@drawable/history" />
+
+        <!--Genre area-->
+        <TextView
+            android:id="@+id/gridview_genre_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/narrow_activity_margin"
+            android:background="@color/primaryLightColor"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/narrow_activity_margin"
+            android:paddingEnd="@dimen/narrow_activity_margin"
+            android:paddingLeft="@dimen/narrow_activity_margin"
+            android:paddingRight="@dimen/narrow_activity_margin"
+            android:paddingStart="@dimen/narrow_activity_margin"
+            android:paddingTop="@dimen/narrow_activity_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/primaryTextColor"
+            tools:text="@string/genre_science_fiction_fantasy" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>
