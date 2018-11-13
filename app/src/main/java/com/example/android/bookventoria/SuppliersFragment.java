@@ -12,6 +12,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +26,7 @@ import android.widget.TextView;
 import com.example.android.bookventoria.data.BookContract.BookEntry;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that displays ListView of Suppliers. .
  * Activities that contain this fragment must implement the
  * {@link OnSupplierFragmentInteractionListener} interface
  * to handle interaction events.
@@ -48,6 +49,8 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
     ProgressBar progressBar;
     // Empty view for ListView
     View emptyView;
+    // TextView that references header text on supplier list fragment page
+    TextView supplierHeaderTextView;
     /* Adapter for the ListView */
     private SupplierCursorAdapter supplierCursorAdapter;
     // Parameters that will be needed for queries: Selection, SelectionArgs, and Projection
@@ -57,8 +60,6 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
     private String[] mSelectionArgs;
     // Projection that specifies the columns that will be shown in the ListView
     private String[] mProjection;
-    // TextView that references header text on supplier list fragment page
-    TextView supplierHeaderTextView;
     // Listener for interface that allows this fragment to communicate with the MainActivity
     private OnSupplierFragmentInteractionListener supplierListener;
 
@@ -93,10 +94,17 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // The projection for this fragment only contains 3 columsn: ID, Supplier Name, and
+        // Supplier Phone Number
         mProjection = new String[]{
                 BookEntry._ID,
                 BookEntry.COLUMN_BOOK_SUPPLIER_NAME,
                 BookEntry.COLUMN_BOOK_SUPPLIER_PHONE};
+
+        // Report that this fragment would like to participate in populating
+        // the options menu by receiving a call to {@link #onCreateOptionsMenu}
+        // and related methods.
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -105,11 +113,6 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_suppliers, container, false);
-
-        // Report that this fragment would like to participate in populating
-        // the options menu by receiving a call to {@link #onCreateOptionsMenu}
-        // and related methods.
-        setHasOptionsMenu(true);
 
         // Find TextView that shows header for this fragment's layout
         supplierHeaderTextView = rootView.findViewById(R.id.suppliers_header_text);
@@ -140,6 +143,7 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
         // Reference to ProgressBar View in activity layout
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar_view);
 
+        // Start loader
         getLoaderManager().initLoader(SUPPLIER_LOADER, null, this);
 
         // Return rootView
@@ -163,6 +167,27 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
         // Hide Insert Demo Data menu item
         MenuItem addDemoData = menu.findItem(R.id.action_insert_demo_data);
         addDemoData.setVisible(false);
+
+        // Hide View Logs button
+        MenuItem viewLogs = menu.findItem(R.id.action_view_logs);
+        viewLogs.setVisible(false);
+
+        // Hide delete logs button
+        MenuItem deleteLogs = menu.findItem(R.id.action_delete_logs);
+        deleteLogs.setVisible(false);
+
+        // Hide sort button if there are no books. Retrieve info from SharedPreferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
+        boolean anyBooks = sharedPreferences.getBoolean(QueryUtils.ANY_BOOKS_BOOLEAN_KEY, false);
+
+        // Find reference to sort books menu item
+        MenuItem sortBooks = menu.findItem(R.id.action_sort);
+
+        if (!anyBooks) {
+            sortBooks.setVisible(false);
+        } else {
+            sortBooks.setVisible(true);
+        }
     }
 
     @Override
@@ -172,12 +197,11 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
 
         if (context instanceof OnSupplierFragmentInteractionListener) {
             supplierListener = (OnSupplierFragmentInteractionListener) context;
-            // Call method in MainActivity that will change the toolbar to allow sorting of
-            // Suppliers
-            supplierListener.onSuppliersAttached();
+
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            // Log error
+            Log.e(LOG_TAG, "RuntimeException: " + context.toString() +
+                    " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -189,14 +213,17 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
 
         // Call loader
         getLoaderManager().restartLoader(SUPPLIER_LOADER, null, this);
+        getActivity().invalidateOptionsMenu();
         super.onResume();
     }
 
+    /**
+     * Called when fragment is detached
+     */
     @Override
     public void onDetach() {
         super.onDetach();
-        // Call method in MainActivity that will change the toolbar back to it's normal look
-        supplierListener.onSuppliersDetached();
+
         supplierListener = null;
     }
 
@@ -227,6 +254,8 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
         if (TextUtils.isEmpty(mSelection) || (mSelection.equals("")) || mSelection == null) {
             // Return new CursorLoader where selection/selectionArgs are null
             // This loader will execute the ContentProvider's query method on a background thread
+            // The Uri used is a special one that is matched to the query that uses the DISTINCT
+            // keyword. This preventsthe same supplier from appearing multiple times
             return new CursorLoader(this.context,   // Parent activity context
                     BookEntry.CONTENT_URI_DISTINCT,   // Provider content URI to query
                     mProjection,              // Columns to include in the resulting Cursor
@@ -238,6 +267,8 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
         // If selection is not null, return the loader with the selection and selectionArgs
         // passed in as parameters
         // This loader will execute the ContentProvider's query method on a background thread
+        // The Uri used is a special one that is matched to the query that uses the DISTINCT
+        // keyword. This preventsthe same supplier from appearing multiple times
         return new CursorLoader(this.context,   // Parent activity context
                 BookEntry.CONTENT_URI_DISTINCT,   // Provider content URI to query
                 mProjection,              // Columns to include in the resulting Cursor
@@ -303,9 +334,7 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * Tips and guidance obtained from Android Training lesson
+     * activity. Tips and guidance obtained from Android Training lesson
      * http://developer.android.com/training/basics/fragments/communicating.html
      * "Communicating with Other Fragments"
      */
@@ -317,18 +346,5 @@ public class SuppliersFragment extends Fragment implements LoaderCallbacks<Curso
          * @param uriId the ID of the book/supplier that was clicked
          */
         void showSupplierDetails(long uriId);
-
-        /**
-         * Method that handles this fragment being attached. The sort option will change to
-         * Supplier Sort
-         */
-        void onSuppliersAttached();
-
-        /**
-         * Method that handles this fragment no longer being attached. The sort option will
-         * change back
-         */
-        void onSuppliersDetached();
-
     }
 }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
-  ~ Supplier Detail Page
-  -->
+<!-- Supplier Detail Page -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,7 +22,7 @@
             style="@style/SupplierDetails"
             android:layout_marginBottom="@dimen/divider_size"
             android:background="@color/white_background"
-            android:drawableBottom="@drawable/supplier_detail1"
+            android:drawableBottom="@drawable/supplier_detail_avatar"
             android:drawablePadding="@dimen/activity_margin"
             android:padding="@dimen/activity_margin"
             tools:text="@string/editor_activity_supplier_name_sample" />
@@ -35,12 +33,13 @@
             style="@style/SupplierDataSummaryHeading"
             android:layout_marginTop="@dimen/divider_size"
             android:background="@color/white_background"
-            android:drawableLeft="@drawable/baseline_local_phone_black_24"
+            android:drawableLeft="@drawable/phone_icon"
             android:drawablePadding="@dimen/activity_margin"
-            android:drawableStart="@drawable/baseline_local_phone_black_24"
+            android:drawableStart="@drawable/phone_icon"
             android:paddingTop="@dimen/activity_margin"
             android:text="@string/supplier_call_now_button" />
 
+        <!--Supplier Phone Number-->
         <TextView
             android:id="@+id/supplier_phone"
             style="@style/SupplierDataSummaryHeading"
@@ -57,37 +56,42 @@
             android:textStyle="bold"
             tools:text="@string/editor_activity_supplier_phone_sample" />
 
+        <!--Latest Activity Heading-->
         <TextView
             style="@style/SupplierDataSummaryHeading"
             android:layout_marginTop="@dimen/divider_size"
             android:background="@color/white_background"
-            android:drawableLeft="@drawable/baseline_update_black_24"
+            android:drawableLeft="@drawable/supplier_activity_icon"
             android:drawablePadding="@dimen/activity_margin"
-            android:drawableStart="@drawable/baseline_update_black_24"
+            android:drawableStart="@drawable/supplier_activity_icon"
             android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
             android:text="@string/supplier_latest_activity" />
 
+        <!--Latest Activity summary-->
         <TextView
             android:id="@+id/supplier_summary_text_view"
             style="@style/SupplierDetailParagraphs"
             tools:text="@string/supplier_latest_activity_summary_bad_1_sample" />
 
+        <!--View Books From Supplier "Button"-->
         <TextView
             android:id="@+id/view_all_books_from_supplier"
             style="@style/SupplierDataSummaryHeading"
             android:layout_marginBottom="@dimen/divider_size"
             android:layout_marginTop="@dimen/divider_size"
             android:background="@color/white_background"
+            android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
-            android:drawableLeft="@drawable/baseline_list_black_24"
+            android:drawableLeft="@drawable/list_icon"
             android:drawablePadding="@dimen/activity_margin"
-            android:drawableStart="@drawable/baseline_list_black_24"
+            android:drawableStart="@drawable/list_icon"
             android:focusable="true"
             android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
             android:text="@string/supplier_view_other_books" />
 
+        <!--Helpful Tips heading-->
         <TextView
             style="@style/SupplierDataSummaryHeading"
             android:layout_marginTop="@dimen/divider_size"
@@ -99,9 +103,11 @@
             android:paddingTop="@dimen/activity_margin"
             android:text="@string/supplier_tips" />
 
+        <!--Helpful Tips text-->
         <TextView
             android:id="@+id/helpful_tip_summary_text"
             style="@style/SupplierDetailParagraphs"
+            android:paddingBottom="@dimen/activity_margin"
             android:layout_weight="1"
             android:text="@string/supplier_helpful_tips_text" />
     </LinearLayout>

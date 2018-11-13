@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Layout for SuppliersFragment-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
+        android:padding="@dimen/activity_margin"
         android:visibility="gone">
 
         <ImageView
@@ -30,22 +32,22 @@
             android:layout_height="@dimen/empty_view_image_size"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/empty_view_suppliers_image_description"
-            android:src="@drawable/empty_box_2" />
+            android:src="@drawable/empty_view_suppliers" />
 
         <TextView
             android:id="@+id/empty_title_text"
-            style="@style/empty_view_text"
-            android:paddingTop="16dp"
+            style="@style/EmptyViewText"
+            android:paddingTop="@dimen/activity_vertical_margin"
             android:text="@string/empty_view_suppliers_big"
             android:textAppearance="?android:textAppearanceLarge"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/empty_subtitle_text"
-            style="@style/empty_view_text"
+            style="@style/EmptyViewText"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="8dp"
+            android:paddingTop="@dimen/narrow_activity_margin"
             android:text="@string/empty_view_suppliers_subtitle"
             android:textAppearance="?android:textAppearanceMedium" />
     </LinearLayout>
@@ -58,7 +60,7 @@
         android:paddingBottom="@dimen/activity_margin"
         android:paddingRight="@dimen/activity_margin"
         android:text="@string/fragment_suppliers_text_header"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <!--ListView containing Suppliers Name and Phone Numbers-->
     <ListView

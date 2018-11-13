@@ -1,23 +1,20 @@
 package com.example.android.bookventoria;
 
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 /**
- * Class for Settings menu which will allow user to Sort books by Name or Author, in either
- * ascending or descending order. Tips and guidance received from Udacity's Earthquake app lesson
+ * Class for Settings menu which will allow user to Sort books by ID, Name, Author, Sales,
+ * Quantity, or Supplier Name in either ascending or descending order. Tips and guidance received
+ * from Udacity's Earthquake app lesson
  */
 public class SettingsActivity extends AppCompatActivity {
 
@@ -33,8 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar settingsToolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(settingsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
     }
 
     /**
@@ -58,17 +53,25 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * PreferenceFragment inside SettingsActivity which is used to present widgets for editing user
+     * preferences.
+     */
     public static class BooksPreferenceFragment extends PreferenceFragment implements Preference
-            .OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+            .OnPreferenceChangeListener {
+
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+            // Find reference to settings resource file
             addPreferencesFromResource(R.xml.settings_main);
 
+            // Create and find reference to the orderBy preference
             Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
             bindPreferenceSummaryToValue(orderBy);
 
+            // Create and find reference to the sortDirection preference
             Preference sortDirection = findPreference(getString(R.string.settings_sort_direction_key));
             bindPreferenceSummaryToValue(sortDirection);
         }
@@ -80,18 +83,28 @@ public class SettingsActivity extends AppCompatActivity {
          * @param preference reference to the preference
          */
         private void bindPreferenceSummaryToValue(Preference preference) {
-
+            // Create and find reference to default SharedPreferences
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(preference
                     .getContext());
+            // Add change listener
             preference.setOnPreferenceChangeListener(this);
 
-            String preferenceString;
+            // Create String that will store the current preference value
+            String preferenceString = preferences.getString(preference.getKey(), "");
 
-            Log.v(LOG_TAG, "current preference is " + preference.getKey() +
-                    " and current value is " + preferences.getString(preference.getKey(), ""));
-
-            preferenceString = preferences.getString(preference.getKey(), "");
+            // Pass the preference and preferenceString values to the OnPreferenceChange method
             onPreferenceChange(preference, preferenceString);
+
+            // Get current time and date, then call method to update the logs, passing along the time
+            // and event description
+            String dateTime = QueryUtils.dateTimeString(getActivity());
+
+            // Form a description of what was changed
+            String preferenceLog = "Preference: " + preference.getKey() +
+                    " was changed to " + preferenceString;
+
+            // Update User Activity Logs using the date/time and preferenceLog
+            QueryUtils.updateLogs(getActivity(),dateTime,preferenceLog);
         }
 
         /**
@@ -107,9 +120,11 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             // The code in this method takes care of updating the displayed
             // preference summary after it has been changed
-
+            // Set the passed in value to a String
             String stringValue = newValue.toString();
 
+            // If the current preference is a ListPreference, iterate through the arrays
+            // containing the labels/values. Tips/code from Udacity earthquake app lesson.
             if (preference instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) preference;
                 int prefIndex = listPreference.findIndexOfValue(stringValue);
@@ -118,21 +133,11 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.setSummary(labels[prefIndex]);
                 }
             } else {
+                // If not, just set the summary to show the new value
                 preference.setSummary(stringValue);
-
             }
+            // Return true
             return true;
-        }
-
-        /**
-         * Called when a Preference has been clicked.
-         *
-         * @param preference The Preference that was clicked.
-         * @return True if the click was handled.
-         */
-        @Override
-        public boolean onPreferenceClick(Preference preference) {
-            return false;
         }
     }
 }

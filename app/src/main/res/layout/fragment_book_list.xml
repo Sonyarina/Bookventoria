@@ -1,68 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Layout for BookListFragment. Contains ListView, empty view, Fab-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_book_list_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_background"
-    tools:context=".MainActivity">
+    tools:context=".BookListFragment">
 
-    <!--ProgressBar View-->
-    <ProgressBar
-        android:id="@+id/progress_bar_view"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+    <!--LinearLayout view containing Inventory Snapshot table-->
+    <include layout="@layout/inventory_snapshot_table_layout" />
 
-    <!-- Empty view for the list -->
-    <LinearLayout
-        android:id="@+id/empty_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/no_books_image"
-            android:layout_width="@dimen/empty_view_image_size"
-            android:layout_height="@dimen/empty_view_image_size"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/list_item_image_description"
-            android:src="@drawable/empty_box_2" />
-
-        <TextView
-            android:id="@+id/empty_title_text"
-            style="@style/empty_view_text"
-            android:paddingTop="16dp"
-            android:text="@string/empty_view_title_text"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/empty_subtitle_text"
-            style="@style/empty_view_text"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="8dp"
-            android:text="@string/empty_view_subtitle_text"
-            android:textAppearance="?android:textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/add_dummy_data_text"
-            style="@style/empty_view_text"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:paddingTop="8dp"
-            android:text="@string/empty_view_add_demo_data_text"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/secondaryColor"
-            android:textStyle="bold" />
-    </LinearLayout>
-
+    <!--FAB used to add new book-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -71,16 +21,17 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/baseline_add_white_36"
+        android:src="@drawable/fab_icon_add"
+        android:tint="@color/primaryTextColor"
         app:backgroundTint="@color/primaryColor"
-        app:fabSize="normal"
-        android:tint="@color/primaryTextColor" />
+        app:fabSize="normal" />
 
+    <!--ListView showing list of all books-->
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/inventory_summary_layout_view1"
+        android:layout_below="@id/inventory_snapshot_layout"
         android:clickable="true"
         android:divider="@android:color/transparent"
         android:dividerHeight="@dimen/list_item_divider_height"
@@ -93,63 +44,64 @@
         tools:listheader="@layout/header_view"
         tools:listitem="@layout/list_item" />
 
+    <!-- Empty view for the list -->
     <LinearLayout
-        android:id="@+id/inventory_summary_layout_view1"
-        android:layout_width="match_parent"
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/extra_narrow_activity_margin"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:padding="@dimen/activity_margin"
+        android:visibility="gone">
 
-        <!--TextView Above Inventory Summary Area-->
+        <!--Empty View image-->
+        <ImageView
+            android:id="@+id/no_books_image"
+            android:layout_width="@dimen/empty_view_image_size"
+            android:layout_height="@dimen/empty_view_image_size"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/list_item_image_description"
+            android:src="@drawable/empty_view_books" />
+
+        <!--Empty view title-->
         <TextView
-            style="@style/DataSummaryHeading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/narrow_activity_margin"
-            android:text="@string/inventory_summary_header" />
+            android:id="@+id/empty_title_text"
+            style="@style/EmptyViewText"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/empty_view_title_text"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
 
-        <!--Nested Horizontal LinearLayout containing Inventory statistics-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/inventory_summary_layout_height">
+        <!--Empty view subtitle-->
+        <TextView
+            android:id="@+id/empty_subtitle_text"
+            style="@style/EmptyViewText"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/narrow_activity_margin"
+            android:text="@string/empty_view_subtitle_text"
+            android:textAppearance="?android:textAppearanceMedium" />
 
-            <!--TextView showing total Books in inventory-->
-            <TextView
-                android:id="@+id/inventory_summary_text"
-                style="@style/DataSummary"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/narrow_activity_margin"
-                android:layout_marginStart="@dimen/narrow_activity_margin"
-                android:layout_weight="1"
-                tools:text="@string/inventory_total_books_sample" />
-
-            <!--TextView showing total Sales inventory-->
-            <TextView
-                android:id="@+id/sales_summary_text"
-                style="@style/DataSummary"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/extra_narrow_activity_margin"
-                android:layout_marginRight="@dimen/extra_narrow_activity_margin"
-                android:layout_weight="1"
-                tools:text="@string/inventory_total_sales_sample" />
-
-            <!--TextView showing low inventory quantity-->
-            <TextView
-                android:id="@+id/low_stock_summary_text"
-                style="@style/DataSummary"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/narrow_activity_margin"
-                android:layout_marginRight="@dimen/narrow_activity_margin"
-                android:layout_weight="1"
-                tools:text="@string/inventory_low_stock_sample" />
-        </LinearLayout>
+        <!--Empty view Add Demo Data-->
+        <TextView
+            android:id="@+id/add_dummy_data_text"
+            style="@style/EmptyViewText"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingTop="@dimen/narrow_activity_margin"
+            android:text="@string/empty_view_add_demo_data_text"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/secondaryColor"
+            android:textStyle="bold" />
     </LinearLayout>
 
+    <!--ProgressBar View-->
+    <ProgressBar
+        android:id="@+id/progress_bar_view"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

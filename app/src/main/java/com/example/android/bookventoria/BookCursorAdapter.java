@@ -26,7 +26,7 @@ import com.example.android.bookventoria.data.BookContract.BookEntry;
 import java.text.NumberFormat;
 
 /**
- * {@link BookCursorAdapter} is an adapter for a list or grid view
+ * {@link BookCursorAdapter} is an adapter for a list view
  * that uses a {@link Cursor} of book data as its data source.
  */
 public class BookCursorAdapter extends CursorAdapter {
@@ -68,7 +68,7 @@ public class BookCursorAdapter extends CursorAdapter {
      */
     @Override
     public void bindView(View view, final Context context, final Cursor cursor) {
-        // Find fields to populate in inflated template
+        // Find fields to populate in inflated list item template
         TextView bookNameTextView = (TextView) view.findViewById(R.id.name);
         TextView authorTextView = (TextView) view.findViewById(R.id.author);
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
@@ -85,23 +85,12 @@ public class BookCursorAdapter extends CursorAdapter {
         int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_QUANTITY);
         int salesColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SALES);
-        int supplierNameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER_NAME);
-        int supplierPhoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER_PHONE);
 
-        Log.v(LOG_TAG, "NAME INDEX: " + nameColumnIndex
-                + "\nAuthor Index: " + authorColumnIndex
-                + "\nGenre Index: " + genreColumnIndex
-                + "\nPrice Index: " + priceColumnIndex
-                + "\nQuantity Index: " + quantityColumnIndex
-                + "\nSales Index: " + salesColumnIndex
-                + "\nSupplier Name Index: " + supplierNameColumnIndex
-                + "\nSupplier Phone Index: " + supplierPhoneColumnIndex);
         // Use that index to extract the String or Int value of the word
         // at the current row the cursor is on.
         // Extract properties from cursor if the column index is not equal to -1
         // Use that index to extract the String or Int value of the word
         // at the current row the cursor is on.
-
         final long retrievedBookID = cursor.getLong(idColumnIndex);
         String retrievedBookName = cursor.getString(nameColumnIndex);
         String retrievedAuthor = cursor.getString(authorColumnIndex);
@@ -109,8 +98,6 @@ public class BookCursorAdapter extends CursorAdapter {
         int retrievedPrice = cursor.getInt(priceColumnIndex);
         final int retrievedQuantity = cursor.getInt(quantityColumnIndex);
         final int retrievedSales = cursor.getInt(salesColumnIndex);
-        String retrievedSupplierName = cursor.getString(supplierNameColumnIndex);
-        String retrievedSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
 
         // Set up the textviews with the retrieved text
         bookNameTextView.setText(retrievedBookName);
@@ -121,12 +108,12 @@ public class BookCursorAdapter extends CursorAdapter {
         Character bookIconLetter = retrievedBookName.charAt(0);
         bookIconTextView.setText(bookIconLetter.toString());
 
-        // Convert price to number format
-        // First divide by 100 to get in dollars
-        retrievedPrice = retrievedPrice / 100;
+        // Format Price to show currency
+        // First divide by 100 to get in dollars, store in float variable
+        float priceDollars = (float) retrievedPrice / 100;
 
         // Now set price textview, formatted as currency
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(retrievedPrice));
+        priceTextView.setText(NumberFormat.getCurrencyInstance().format(priceDollars));
 
         // The quantity must be converted to string before setting TextView
         quantityTextView.setText(Integer.toString(retrievedQuantity));
@@ -154,17 +141,19 @@ public class BookCursorAdapter extends CursorAdapter {
                     swapCursor(cursor);
 
                     // display toast
-                    Toast.makeText(context, R.string.list_item_sale_success, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), R.string.list_item_sale_success,
+                            Toast.LENGTH_SHORT)
+                            .show();
                 } else {
                     // If retrieved quantity was 0, show toast message explaining why the sale
                     // cannot be added
-                    Toast.makeText(context, R.string.list_item_quantity_zero, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), R.string.list_item_quantity_zero, Toast
+                            .LENGTH_SHORT).show();
                 }
             }
         });
 
-        // Set up the genre textview to show the correct genre
-        //  genre icon, and corresponding color
+        // Set up the genre textview to show the correct genre and corresponding color
         switch (retrievedGenre) {
             case BookEntry.GENRE_NONFICTION:
                 genreTextView.setText(BookEntry.FORMATTED_GENRE_NONFICTION);

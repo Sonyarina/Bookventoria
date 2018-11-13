@@ -1,36 +1,30 @@
-<!--
-  ~ Created by Sonia M on 9/25/18 7:39 PM for educational purposes.
-  ~  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
-  ~  relevant to this project.
-  -->
-
+<!--Created by Sonia M for educational purposes. All book names, author names, Supplier Names, and
+Phone Numbers are fictional. Any similarities to real life persons and/or companies are purely
+coincidental.-->
 <resources>
     <string name="app_name">Bookventoria</string>
 
     <!-- Menu Item Labels [CHAR LIMIT=50] -->
-    <string name="menu_search_item_label">Search</string>
     <string name="menu_add_new_book_label">Add New Book</string>
     <string name="menu_settings_item_label">Sort Order</string>
     <string name="menu_add_demo_data_item_label">Add Demo Data</string>
     <string name="menu_delete_all_books_item_label">Delete All Books</string>
     <string name="menu_action_save">Save</string>
+    <string name="save_button_text">Save</string>
     <string name="menu_action_edit">Edit</string>
     <string name="menu_action_delete">Delete</string>
     <string name="menu_action_close">Close Book</string>
-    <string name="search_hint">Enter Search Phrase</string>
 
     <!-- Text related to the empty view [CHAR LIMIT=50] -->
     <string name="empty_view_title_text">You don\'t have any books yet.</string>
-    <string name="empty_view_subtitle_text">Press the button below to add a new book\nor click
-        below to add demo data.</string>
+    <string name="empty_view_subtitle_text">Press the button below to add a new book or click below to add demo data.</string>
     <string name="empty_view_add_demo_data_text">____________\n\n\nAdd Demo Data</string>
     <string name="empty_view_low_inventory">No Books Have A Low Inventory Count.</string>
     <string name="empty_view_query_title_text">Query Yielded No Results</string>
     <string name="empty_view_supplier_books">No Books Found For This Supplier.</string>
     <string name="empty_view_genre">No Books Match Category: %s</string>
     <string name="empty_view_suppliers_big">You don\'t have any suppliers yet.</string>
-    <string name="empty_view_suppliers_subtitle">Because you haven\'t entered any books yet
-        .</string>
+    <string name="empty_view_suppliers_subtitle">Because you haven\'t entered any books yet.</string>
     <string name="empty_view_suppliers_image_description">Image depicting no suppliers.</string>
 
     <!--Formatted Database Column Names (for use in textviews)-->
@@ -58,11 +52,8 @@
     <string name="genre_teens_young_adult">Teens, Young Adults</string>
     <string name="genre_other">Other, Miscellaneous</string>
 
-    <!--Section Headers in Editor and Detail Activities-->
-    <string name="section_book_details">Book Details</string>
-
     <!--Report, Query List Headers-->
-    <string name="query_low_inventory_header">Books With Low Inventory</string>
+    <string name="query_low_inventory_header">Low Inventory</string>
     <string name="query_books_with_sales_header">Books With Sales</string>
     <string name="query_all_books_header">All Books</string>
     <string name="query_by_genre">Books from Genre: %s</string>
@@ -79,20 +70,18 @@
     <string name="detail_by_author">by %s</string>
     <string name="detail_call_now_button">Call Now</string>
     <string name="supplier_call_now_button">Call Supplier</string>
-    <string name="supplier_view_other_books">View All Books From This Supplier</string>
+    <string name="supplier_view_other_books">View Books From Supplier</string>
     <string name="supplier_latest_activity">Latest Activity</string>
-    <string name="supplier_latest_activity_summary_good">You recently purchased \"%s\" from %s.
-        You\'ve sold %d copies of \"%s\" thus far, and you have %d copies remaining.</string>
-    <string name="supplier_latest_activity_summary_good_1">You recently purchased \"%s\" from %s.
-        You\'ve sold %d copies of \"%s\" thus far, but you only have 1 copy remaining.</string>
-    <string name="supplier_latest_activity_summary_good_0">You recently purchased \"%s\" from %s.
-        You\'ve sold %d copies of \"%s\" thus far, but you're out of stock!</string>
-    <string name="supplier_latest_activity_summary_bad_1">You recently purchased \"%s\" from %s
-        . The book hasn\'t taken off in popularity yet. You\'ve only sold 1 copy.</string>
-    <string name="supplier_latest_activity_summary_bad_0">You recently purchased \"%s\" from %s
-        . The book hasn\'t taken off in popularity yet. You haven\'t sold any copies yet!</string>
-    <string name="supplier_latest_activity_summary_bad_multiple">You recently purchased \"%s\"
-        from %s. The book hasn\'t taken off in popularity yet. You\'ve only sold %d copies.</string>
+    <string name="supplier_latest_activity_summary_good"><![CDATA[You recently purchased <i>%s</i> from %s.
+        You\'ve sold %d copies of <i>%s</i> thus far, and you have %d copies remaining.]]></string>
+    <string name="supplier_latest_activity_summary_good_1"><![CDATA[You recently purchased <i>%s</i> from %s.
+        You\'ve sold %d copies of <i>%s</i> thus far, but you only have 1 copy remaining.]]></string>
+    <string name="supplier_latest_activity_summary_good_0"><![CDATA[You recently purchased <i>%s</i> from %s.
+        You\'ve sold %d copies of <i>%s</i> thus far, but you\'re out of stock!]]></string>
+    <string name="supplier_latest_activity_summary_bad_1"><![CDATA[You recently purchased <i>%s</i> from %s. The book hasn\'t taken off in popularity yet. You\'ve only sold 1 copy.]]></string>
+    <string name="supplier_latest_activity_summary_bad_0"><![CDATA[You recently purchased <i>%s</i> from %s. The book hasn\'t taken off in popularity yet. You haven\'t sold any copies yet!]]></string>
+    <string
+        name="supplier_latest_activity_summary_bad_multiple"><![CDATA[You recently purchased <i>%s</i> from %s. The book hasn\'t taken off in popularity yet. You\'ve only sold %d copies.]]></string>
     <string name="supplier_latest_activity_summary_sample_good">You recently purchased \"How To
         Be A Player\" from Mars Books. You\'ve sold 20 copies of \"How To Be A Player\" thus
         far, and you have 50 copies remaining.</string>
@@ -101,11 +90,9 @@
     <string name="detail_phone_number_prefix">tel:</string>
     <string name="supplier_summary_text">Here is the detailed information about your
         supplier. To call this supplier, click the phone number below. \n\nTo view all the books
-        from this supplier, click the button that says \"View All Books From This Supplier
-        .\"</string>
+        from this supplier, click the button that says \"View All Books From This Supplier.\"</string>
     <string name="supplier_helpful_tips_text">To call this supplier, click the phone number listed above. To view all the
-        books from this supplier, click the text that says \"<b>View All Books From This
-            Supplier</b>.\"</string>
+        books from this supplier, click the text that says <b>View Books From Supplier</b>.</string>
     <string name="supplier_tips">Helpful Tips</string>
     <string name="supplier_detail_page_title">Supplier Details</string>
 
@@ -196,9 +183,8 @@
     <!-- Messages and text related to database events [CHAR LIMIT=NONE] -->
     <string name="database_queried">Database query.</string>
     <string name="database_demo_data">Demo data added to database.</string>
-    <string name="database_demo_data_rows">%d rows added to database.</string>
-    <string name="database_demo_data_failure">Operation failed. No demo data was added to database
-        .</string>
+    <string name="database_demo_data_rows">%d books added to database.</string>
+    <string name="database_demo_data_failure">Operation failed. No demo data was added to database.</string>
     <string name="query_error_unknown_uri">Cannot query unknown URI %s</string>
     <string name="query_error_update_not_supported">Update is not supported for %s</string>
     <string name="query_error_delete_not_supported">Delete is not supported for %s</string>
@@ -209,8 +195,7 @@
     <!-- List Item related strings [CHAR LIMIT=NONE] -->
     <string name="list_item_image_description">Image depicting book genre</string>
     <string name="list_item_sale_success">Sale Added!</string>
-    <string name="list_item_quantity_zero">Cannot add sale because item is out of stock
-        .</string>
+    <string name="list_item_quantity_zero">Cannot add sale because item is out of stock.</string>
 
     <!--Alerts, dialogues, and toast messages based on Pets app lessons from Udacity-->
 
@@ -239,6 +224,8 @@
     LIMIT=NONE]
      -->
     <string name="editor_null_fields_alert">Please Fill Out Required Fields</string>
+    <string name="editor_null_fields_alert_highlight">Highlighted Fields Are Required
+        Fields</string>
 
     <!-- Toast message in editor user attempts to input negative value for quantity [CHAR
     LIMIT=NONE] -->
@@ -269,7 +256,7 @@
     <string name="cancel">Cancel</string>
 
     <!-- Toast message in editor when all books are successfully deleted [CHAR LIMIT=NONE] -->
-    <string name="main_delete_books_successful">All %d books have been deleted</string>
+    <string name="main_delete_books_successful">All %d books have been deleted.</string>
 
     <!-- Toast message in editor when one book was successfully deleted [CHAR LIMIT=NONE] -->
     <string name="main_delete_one_book_successful">1 book has been deleted</string>
@@ -357,5 +344,18 @@
     <!-- Labels for Fragments [CHAR LIMIT=20] -->
     <string name="fragment_genres_text_header">Browse Books By Genre</string>
     <string name="fragment_suppliers_text_header">Your Suppliers</string>
+    <string name="logs_no_data">No user activity found.\nDo something, then check back!</string>
+    <string name="logs_clear_logs">Clear Logs</string>
+    <string name="logs_view_logs">View User Logs</string>
+    <string name="logs_deleted">Logs Deleted!</string>
 
+    <!-- Error Messages for Log [CHAR LIMIT=20] -->
+    <string name="error_name_null">Name field is null.</string>
+    <string name="error_author_null">Author field is null.</string>
+    <string name="error_quantity_invalid">Quantity value is negative or invalid.</string>
+    <string name="error_sales_invalid">Sales value is negative or invalid.</string>
+    <string name="error_price_invalid">Price value is negative or invalid.</string>
+    <string name="error_supplier_name_null">Supplier Name field is null.</string>
+    <string name="error_supplier_phone_null">Supplier Phone field is null.</string>
+    <string name="error_invalid_genre">Error: Invalid Genre</string>
 </resources>

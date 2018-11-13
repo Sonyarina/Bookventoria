@@ -1,8 +1,8 @@
 /*
  * Created by Sonia M on 9/27/18 3:57 PM.
  *  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
- *  relevant to this project. Any additional guidance for specific methods is outlined in
- *  the javadocs for those specific methods.
+ *  relevant to this project. Overriden methods use javadoc from Super Class. Any additional
+ *  guidance for specific methods is outlined in the javadocs for those specific methods.
  */
 
 package com.example.android.bookventoria;
@@ -21,9 +21,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +35,9 @@ import com.example.android.bookventoria.data.BookContract.BookEntry;
 import java.text.NumberFormat;
 
 /**
- * Allows user to review details about a specific book title
+ * Allows user to view details about a specific book title. The user can also adjust the book's
+ * quantity, delete, or edit the book directly from the user interface. Also implements
+ * LoaderManager.LoaderCallBacks<Cursor> interface
  */
 public class BookDetailActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -41,7 +45,7 @@ public class BookDetailActivity extends AppCompatActivity implements
     /**
      * Log tag for debugging
      */
-    public static final String LOG_TAG = BookDetailActivity.class.getSimpleName();
+    private static final String LOG_TAG = BookDetailActivity.class.getSimpleName();
 
     /**
      * Identifier for the book inventory data loader
@@ -67,9 +71,7 @@ public class BookDetailActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
 
-        // Examine the intent that was used to launch this activity,
-        // in order to figure out if we're adding a new book to the database or editing an existing
-        // one.
+        // Examine the intent that was used to launch this activity to retrieve the book's id/uri
         mCurrentBookUri = getIntent().getData();
 
         // Setup FAB to open EditorActivity
@@ -88,7 +90,7 @@ public class BookDetailActivity extends AppCompatActivity implements
         TextView incrementTextView = (TextView) findViewById(R.id.increment);
         TextView decrementTextView = (TextView) findViewById(R.id.decrement);
 
-        // Attach listeners
+        // Attach listeners to the increment/ decrement buttons
         incrementTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +119,12 @@ public class BookDetailActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(EXISTING_BOOK_LOADER, null, this);
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     * @param menu The options menu.
+     * @return Boolean value must return true for the menu to be displayed;
+     *         if you return false it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_detail.xml file.
@@ -125,6 +133,12 @@ public class BookDetailActivity extends AppCompatActivity implements
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in the options menu is selected.
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing to
+     *         proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
@@ -176,13 +190,16 @@ public class BookDetailActivity extends AppCompatActivity implements
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Set message (question) that will be shown on the warning
         builder.setMessage(R.string.delete_dialog_msg);
+        // Set text for Button that will confirm the user wants to proceed with the delete action
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the book.
+                // User clicked the "Delete" button, so delete the book by calling method
                 deleteBook();
             }
         });
+        // Set text for the button the user can click to cancel the operation
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
@@ -193,7 +210,7 @@ public class BookDetailActivity extends AppCompatActivity implements
             }
         });
 
-        // Create and show the AlertDialog
+        // Finally, create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -233,6 +250,7 @@ public class BookDetailActivity extends AppCompatActivity implements
      * Perform the deletion of the book in the database.
      */
     private void deleteBook() {
+        // If the Uri is equal to null, return. The uri must include the id of a specific book
         if (mCurrentBookUri == null) {
             return;
         }
@@ -246,14 +264,18 @@ public class BookDetailActivity extends AppCompatActivity implements
         // delete operation was successful
         if (rowsDeleted != 0) {
             // the deletion was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_delete_book_successful),
+            // To get the toast message to display without crashing the app on certain phones, had
+            // to use "getApplicationContext()". This was discovered through trial and error.
+            Toast.makeText(getApplicationContext(), getString(R.string.editor_delete_book_successful),
                     Toast.LENGTH_SHORT).show();
 
             // Close editor activity
             finish();
         } else {
             // the deletion was unsuccessful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_delete_book_failed),
+            // To get the toast message to display without crashing the app on certain phones, had
+            // to use "getApplicationContext()"
+            Toast.makeText(getApplicationContext(), getString(R.string.editor_delete_book_failed),
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -351,20 +373,20 @@ public class BookDetailActivity extends AppCompatActivity implements
 
             // Format Price to show currency
             // First divide by 100 to get in dollars
-            retrievedPrice = retrievedPrice / 100;
+            float priceDollars = (float) retrievedPrice / 100;
 
             // Now set price textview, formatted as currency
-            priceTextView.setText(NumberFormat.getCurrencyInstance().format(retrievedPrice));
+            priceTextView.setText(NumberFormat.getCurrencyInstance().format(priceDollars));
 
             // Set up Call Now button
-            // Find TextView then add click listener to it
-            TextView callNowTextView = (TextView) findViewById(R.id.call_now_button);
+            // Find Button then add click listener to it
+            Button callNowTextView = findViewById(R.id.call_now_button);
 
             // Get the tel: prefix from resources, then append the phone number
             mSupplierPhoneNumber = getString(R.string.detail_phone_number_prefix);
             mSupplierPhoneNumber = mSupplierPhoneNumber + retrievedSupplierPhone;
 
-            // Add On click listener
+            // Add On click listener to Call Now button
             callNowTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

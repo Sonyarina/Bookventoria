@@ -1,6 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--Vertical Linear Layout containing Inventory summary and description text-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inventory_snapshot_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/extra_narrow_activity_margin"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/fragment_book_list">
 
+    <!--TextView Above Inventory Summary Area-->
+    <TextView
+        android:id="@+id/inventory_snapshot_heading"
+        style="@style/DataSummaryHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/narrow_activity_margin"
+        android:text="@string/inventory_summary_header"
+        android:visibility="gone" />
+
+    <!--Nested Horizontal LinearLayout containing Inventory statistics-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/inventory_summary_layout_height">
+
+        <!--TextView showing total Books in inventory-->
+        <TextView
+            android:id="@+id/inventory_summary_text"
+            style="@style/DataSummary"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/narrow_activity_margin"
+            android:layout_marginStart="@dimen/narrow_activity_margin"
+            android:layout_weight="1"
+            android:visibility="gone"
+            tools:text="@string/inventory_total_books_sample" />
+
+        <!--TextView showing total Sales inventory-->
+        <TextView
+            android:id="@+id/sales_summary_text"
+            style="@style/DataSummary"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/extra_narrow_activity_margin"
+            android:layout_marginRight="@dimen/extra_narrow_activity_margin"
+            android:layout_weight="1"
+            android:visibility="gone"
+            tools:text="@string/inventory_total_sales_sample" />
+
+        <!--TextView showing low inventory quantity-->
+        <TextView
+            android:id="@+id/low_stock_summary_text"
+            style="@style/DataSummary"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/narrow_activity_margin"
+            android:layout_marginRight="@dimen/narrow_activity_margin"
+            android:layout_weight="1"
+            android:visibility="gone"
+            tools:text="@string/inventory_low_stock_sample" />
+    </LinearLayout>
 </LinearLayout>

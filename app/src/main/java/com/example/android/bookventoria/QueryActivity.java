@@ -1,32 +1,26 @@
 package com.example.android.bookventoria;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.LoaderManager;
+import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.app.LoaderManager;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.bookventoria.data.BookContract.BookEntry;
 
@@ -52,10 +46,6 @@ public class QueryActivity extends AppCompatActivity implements
 
     /* Current Supplier Name */
     String currentSupplierName = "";
-
-    /* SharedPreferences to retrieve and store user preferences */
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor sharedPrefEditor;
 
     /* App Support Toolbar */
     Toolbar queryToolbar;
@@ -112,7 +102,6 @@ public class QueryActivity extends AppCompatActivity implements
 
         // Find query description textview header
         queryDescriptionTextView = findViewById(R.id.query_description_text_view);
-        //queryDescriptionTextView.setVisibility(View.GONE);
 
         // Find empty view textview
         queryEmptyViewTextView = findViewById(R.id.empty_subtitle_text);
@@ -141,11 +130,9 @@ public class QueryActivity extends AppCompatActivity implements
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // Make sure the user clicked on a book and not the ListView header
-                if (id == -1) {
-                    // The header has an id of -1. If it was clicked, do nothing
-                    Log.v(LOG_TAG,"User clicked header view");
+                // The header has an id of -1. If it was clicked, do nothing
 
-                } else {
+                if (id != -1) {
                     // Create new intent to go to {@link BookDetailActivity}
                     Intent intent = new Intent(QueryActivity.this, BookDetailActivity.class);
 
@@ -318,7 +305,7 @@ public class QueryActivity extends AppCompatActivity implements
     }
 
     /**
-     * This method will query the Books table for books of a specified genre
+     * This method will query the Books table for books from a specified supplier
      */
     private void queryBooksBySupplier() {
 
@@ -373,6 +360,8 @@ public class QueryActivity extends AppCompatActivity implements
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Define a projection that specifies the columns that will be shown in the ListView
+        // The projection is always the same in the QueryActivity. Future versions could
+        // potentially include queries with more options
         String[] projection = {
                 BookEntry._ID,
                 BookEntry.COLUMN_BOOK_NAME,
@@ -417,6 +406,15 @@ public class QueryActivity extends AppCompatActivity implements
                 mSelection,           // Selection clause
                 mSelectionArgs,       // Selection arguments
                 sortOrder);         // Default sort order
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save Query Code, Selection and Selection Args in the event of a rotation etc
+        outState.putString(QueryUtils.SELECTION_KEY,mSelection);
+        outState.putStringArray(QueryUtils.SELECTION_ARGS_KEY,mSelectionArgs);
+        outState.putInt(QueryUtils.QUERY_CODE_KEY, currentQueryCode);
     }
 
     /**
@@ -474,7 +472,6 @@ public class QueryActivity extends AppCompatActivity implements
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Log.v(LOG_TAG, "onResume called");
 
         // Restart Loader
         getLoaderManager().restartLoader(QUERY_BOOK_LOADER, null, this);

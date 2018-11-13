@@ -1,7 +1,5 @@
 /*
- * Created by Sonia M on 9/26/18 8:41 PM for educational purposes. The images and/or icons that
- *  were not created by me were obtained with permission from Freepik.com and/or
- *  flaticon.com.
+ * Created by Sonia M on 9/26/18 8:41 PM for educational purposes.
  *  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
  *  relevant to this project. Any additional guidance for specific methods is outlined in
  *  the javadocs for those specific methods.
@@ -15,6 +13,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.android.bookventoria.data.BookContract.BookEntry;
 
+/**
+ * According to Super Class documentation, "This class takes care of opening the database
+ * if it exists, creating it if it does not, and upgrading it as necessary."
+ */
 public class BookDbHelper extends SQLiteOpenHelper {
 
     /**
@@ -49,7 +51,8 @@ public class BookDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        /* Create a String that contains the SQL statement to create the books inventory table
+        /* Create a String that contains the SQLite statement to create the books inventory table.
+        This will be equivalent to the following SQLite statement:
 
         CREATE TABLE books (
         _id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -90,6 +93,6 @@ public class BookDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // Nothing has to be done here, yet.
     }
 }

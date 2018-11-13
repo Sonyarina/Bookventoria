@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Created by Sonia M on 9/26/18 5:35 PM for educational purposes. Tips and guidance for creating and using this menu.xml resource file found on
-Android Developer: https://developer.android.com/training/appbar/actions
-  -->
+<?xml version="1.0" encoding="utf-8"?><!-- Options menu for the QueryActivity -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,16 +8,15 @@ Android Developer: https://developer.android.com/training/appbar/actions
     <!--Add new book button/ menu item-->
     <item
         android:id="@+id/action_add"
-        android:icon="@drawable/baseline_add_white_24"
+        android:icon="@drawable/menu_icon_add"
         android:title="@string/menu_add_new_book_label"
         app:showAsAction="ifRoom" />
 
     <!--Sort Order settings button/ menu item-->
     <item
         android:id="@+id/action_sort"
-        android:icon="@drawable/baseline_sort_white_24"
+        android:icon="@drawable/menu_icon_sort"
         android:orderInCategory="1"
         android:title="@string/menu_settings_item_label"
         app:showAsAction="always" />
-
 </menu>

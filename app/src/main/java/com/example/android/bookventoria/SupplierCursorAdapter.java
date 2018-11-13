@@ -1,10 +1,3 @@
-/*
- * Created by Sonia M on 9/30/18 6:05 PM for educational purposes.
- *  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
- *  relevant to this project. Any additional guidance for specific methods is outlined in
- *  the javadocs for those specific methods.
- */
-
 package com.example.android.bookventoria;
 
 import android.content.Context;
@@ -18,7 +11,7 @@ import android.widget.TextView;
 import com.example.android.bookventoria.data.BookContract.BookEntry;
 
 /**
- * {@link SupplierCursorAdapter} is an adapter for a list or grid view
+ * {@link SupplierCursorAdapter} is an adapter for a listview
  * that uses a {@link Cursor} of book data as its data source.
  */
 public class SupplierCursorAdapter extends CursorAdapter {
@@ -74,7 +67,6 @@ public class SupplierCursorAdapter extends CursorAdapter {
         // Extract properties from cursor if the column index is not equal to -1
         // Use that index to extract the String or Int value of the word
         // at the current row the cursor is on.
-
         String retrievedSupplierName = cursor.getString(supplierNameColumnIndex);
         String retrievedSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
 

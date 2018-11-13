@@ -1,9 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Created by Sonia M on 10/5/18 10:21 PM for educational purposes. The images and/or icons that
-  ~  were not created by me were obtained with permission from Freepik.com and/or
-  ~  flaticon.com.  -->
-
-<!-- Layout for a single grid item in the list of genres -->
+<?xml version="1.0" encoding="utf-8"?><!-- Layout for a single grid item in the list of genres. Created by Sonia M on 10/5/18 10:21 PM
+for educational purposes. The genre icons were obtained with permission from flaticon.com.  -->
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,10 +14,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/genre"
-        tools:background="@color/primaryTextColor"
         android:orientation="vertical"
-        android:paddingTop="@dimen/activity_margin">
+        android:paddingTop="@dimen/activity_margin"
+        tools:background="@color/primaryTextColor">
 
+        <!--Genre Icon-->
         <ImageView
             android:id="@+id/gridview_genre_image"
             android:layout_width="@dimen/grid_item_genre_image"

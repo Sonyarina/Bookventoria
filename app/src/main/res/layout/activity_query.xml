@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Created by Sonia M on 9/25/18 7:15 PM for educational purposes. The images and/or icons that
-  ~  were not created by me were obtained with permission from Freepik.com and/or
-  ~  flaticon.com.
-  ~  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
-  ~  relevant to this project. Any additional guidance for specific methods is outlined in
-  ~  the javadocs for those specific methods.
-  -->
+<?xml version="1.0" encoding="utf-8"?><!--Layout for QueryActivity. -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,7 +16,7 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:elevation="4dp"
+        app:elevation="@dimen/extra_narrow_activity_margin"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="@string/app_name"
         app:titleMarginBottom="@dimen/narrow_activity_margin" />
@@ -43,34 +36,40 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
+        android:padding="@dimen/activity_margin"
         android:visibility="gone">
 
+        <!--Empty View image-->
         <ImageView
             android:id="@+id/no_books_image"
             android:layout_width="@dimen/empty_view_image_size"
             android:layout_height="@dimen/empty_view_image_size"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/query_no_results_image_description"
-            android:src="@drawable/query_no_results" />
+            android:src="@drawable/empty_view_query" />
 
+        <!--Empty View title-->
         <TextView
             android:id="@+id/empty_title_text"
-            style="@style/empty_view_text"
-            android:paddingTop="16dp"
+            style="@style/EmptyViewText"
+            android:paddingTop="@dimen/activity_margin"
             android:text="@string/empty_view_query_title_text"
             android:textAppearance="?android:textAppearanceLarge"
             android:textStyle="bold" />
 
+        <!--Empty View subtitle-->
         <TextView
             android:id="@+id/empty_subtitle_text"
-            style="@style/empty_view_text"
+            style="@style/EmptyViewText"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="8dp"
+            android:paddingTop="@dimen/narrow_activity_margin"
             android:textAppearance="?android:textAppearanceMedium"
             tools:text="@string/empty_view_low_inventory" />
     </LinearLayout>
 
+    <!--TextView showing query description (only visible when description is too long to fit on
+    the toolbar-->
     <TextView
         android:id="@+id/query_description_text_view"
         style="@style/DataSummaryHeading"
@@ -80,6 +79,7 @@
         android:visibility="gone"
         tools:text="@string/query_low_inventory_header" />
 
+    <!--ListView containing the list of books returned from the query-->
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
@@ -92,5 +92,4 @@
         android:listSelector="@android:color/transparent"
         android:padding="@dimen/narrow_activity_margin"
         tools:listitem="@layout/list_item" />
-
 </RelativeLayout>

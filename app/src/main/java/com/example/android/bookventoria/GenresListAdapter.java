@@ -17,7 +17,8 @@ import java.util.ArrayList;
 
 /**
  * {@link GenresListAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
- * based on a data source, which is a list of {@link GenresList} objects
+ * based on a data source, which is a list of {@link GenresList} objects. This adapter helps
+ * populate the GridView used in the GenresList fragment
  */
 public class GenresListAdapter extends ArrayAdapter<GenresList> {
 
@@ -68,7 +69,7 @@ public class GenresListAdapter extends ArrayAdapter<GenresList> {
             genreIconImageView.setImageResource(currentGenre.getImageId());
 
             // Put the genre colors in the background of the TextView containing the genre name
-            switch(currentGenre.getGenreCode()){
+            switch (currentGenre.getGenreCode()) {
                 case BookEntry.GENRE_NONFICTION:
                     genreNameTextView.setBackgroundColor(getContext().getResources().getColor(R
                             .color

@@ -2,21 +2,16 @@ package com.example.android.bookventoria;
 
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.internal.view.SupportMenu;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,10 +21,8 @@ import android.widget.TextView;
 
 import com.example.android.bookventoria.data.BookContract.BookEntry;
 
-import java.text.NumberFormat;
-
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that displays details related to a Supplier.
  * Activities that contain this fragment must implement the
  * {@link OnSupplierDetailFragmentInteractionListener} interface
  * to handle interaction events.
@@ -47,13 +40,18 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
     // the fragment initialization parameters
     private static final String CURRENT_URI_KEY = "current_uri_key";
 
-    // Context
+    // Context, which is passed in from MainActivity
     Context context;
 
     /**
      * Uri data passed in with fragment initialization
      */
     private Uri mCurrentBookUri;
+
+    /**
+     * Book Id
+     */
+    private long currentBookId;
 
     /**
      * String variable keeps track of supplier phone number
@@ -66,8 +64,12 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
     private TextView supplierNameTextView, supplierPhoneTextView, callSupplierTextViewButton,
             viewAllBooksTextViewButton, supplierDetailSummaryTextView;
 
+    // Listener for interface that allows this fragment to communicate with the MainActivity
     private OnSupplierDetailFragmentInteractionListener supplierDetailListener;
 
+    /**
+     * Constructor
+     */
     public SupplierDetailFragment() {
         // Required empty public constructor
         this.context = getActivity();
@@ -93,14 +95,37 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
         super.onActivityCreated(savedInstanceState);
     }
 
+    /**
+     * Called to ask the fragment to save its current dynamic state, so it
+     * can later be reconstructed in a new instance of its process is
+     * restarted.  If a new instance of the fragment later needs to be
+     * created, the data you place in the Bundle here will be available
+     * in the Bundle given to {@link #onCreate(Bundle)},
+     *
+     * @param outState Bundle in which to place your saved state.
+     */
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Saves the current supplier id
+        outState.putLong(CURRENT_URI_KEY, currentBookId);
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            long uriId = getArguments().getLong(CURRENT_URI_KEY);
+            currentBookId = getArguments().getLong(CURRENT_URI_KEY);
 
             // Form the content URI for the specific book that was clicked on
-            mCurrentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, uriId);
+            mCurrentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, currentBookId);
+        }else{
+            // If arguments are null, used savedInstanceState Bundle
+            currentBookId = savedInstanceState.getLong(CURRENT_URI_KEY);
+
+            // Form the content URI for the specific book that was clicked on
+            mCurrentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, currentBookId);
         }
     }
 
@@ -158,7 +183,15 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
 
         // Hide Add New Book button
         MenuItem addNewBook = menu.findItem(R.id.action_add);
-        addDemoData.setVisible(false);
+        addNewBook.setVisible(false);
+
+        // Hide View Logs button
+        MenuItem viewLogs = menu.findItem(R.id.action_view_logs);
+        viewLogs.setVisible(false);
+
+        // Hide Delete Logs button
+        MenuItem deleteLogs = menu.findItem(R.id.action_delete_logs);
+        deleteLogs.setVisible(false);
     }
 
     @Override
@@ -168,11 +201,6 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
 
         if (context instanceof OnSupplierDetailFragmentInteractionListener) {
             supplierDetailListener = (OnSupplierDetailFragmentInteractionListener) context;
-            // Call method in MainActivity that will change the toolbar to allow sorting of
-            // Suppliers
-        } else {
-            /*throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");*/
         }
     }
 
@@ -187,6 +215,9 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
         super.onResume();
     }
 
+    /**
+     * Called when fragment is detached
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -222,7 +253,6 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
                 null,           // Selection clause
                 null,       // Selection arguments
                 null);         // Default sort order
-
     }
 
     /**
@@ -293,9 +323,9 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
             // sales are 9 or less, the description won't be as positive
             // For each case, Pass in as a parameter the book name, sales, quantity.
             // The string resource contains html tags which must also be parsed
-
             if (retrievedSales >= 10) {
-                // Check quantity before selecting good string (based on multiple, zero, or 1 quantity left
+                // Check quantity before selecting which string to use (based on multiple, zero,
+                // or 1 quantity left
                 switch (retrievedQuantity) {
                     case 0:
                         supplierDetailSummaryTextView.setText
@@ -375,11 +405,15 @@ public class SupplierDetailFragment extends Fragment implements LoaderCallbacks<
 
         /**
          * Method that handles user attempt to call supplier
+         *
+         * @param phoneNumberLink the phone number of the supplier in link format
          */
         void callSupplier(String phoneNumberLink);
 
         /**
          * Method that handles click on "View All Books From This Supplier" TextView/button
+         *
+         * @param supplierName The Supplier's name
          */
         void viewAllBooksFromSupplier(String supplierName);
 

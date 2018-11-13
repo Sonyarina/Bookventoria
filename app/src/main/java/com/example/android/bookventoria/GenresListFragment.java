@@ -1,6 +1,7 @@
 package com.example.android.bookventoria;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ import com.example.android.bookventoria.data.BookContract.BookEntry;
 
 
 /**
- * A fragment representing a list of GenresList items
+ * A fragment showing a list of GenresList items in a GridView list.
  * Activities containing this fragment MUST implement the {@link OnGenreFragmentInteractionListener}
  * interface.
  */
@@ -25,11 +26,6 @@ public class GenresListFragment extends Fragment {
 
     /* Tag for the log messages */
     public static final String LOG_TAG = GenresListFragment.class.getSimpleName();
-
-    // Selection value needed for queries: Selection specifies the rows that will be shown in the
-    // ListView. In this case, the only rows that will be needed are the ones of the same genre
-    // that was clicked on
-    private static final String SELECTION = BookEntry.COLUMN_BOOK_GENRE + "=?";
 
     // Context
     Context context;
@@ -39,11 +35,15 @@ public class GenresListFragment extends Fragment {
 
     // Fragment Interface listener
     private OnGenreFragmentInteractionListener genreListener;
+
     //Declare ArrayList containing GenresList objects
     private ArrayList<GenresList> genresListArrayList = new ArrayList<>();
-    ;
+
     // The number representing the genre that was clicked on
     private int selectedGenreCode;
+
+    //This variable will keep track of activity layout orientation
+    boolean isLandscapeMode;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -67,6 +67,14 @@ public class GenresListFragment extends Fragment {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(QueryUtils.ARG_COLUMN_COUNT);
+        }
+
+        //Check if activity is running in landscape mode, if so, do not run the next line(s) of code
+        //Tips for creating and using bool resource files found on stackoverflow.com
+        Resources res = getResources();
+        isLandscapeMode = res.getBoolean(R.bool.is_in_landscape_mode);
+        if (isLandscapeMode) {
+            mColumnCount = 4;
         }
 
         // Populate array with GenresList items
@@ -136,6 +144,8 @@ public class GenresListFragment extends Fragment {
                 genreListener.showBooksFromGenre(selectedGenreCode);
             }
         });
+
+        // Return view
         return view;
     }
 
@@ -174,6 +184,14 @@ public class GenresListFragment extends Fragment {
         // Hide sort books menu item
         MenuItem sortBooks = menu.findItem(R.id.action_sort);
         sortBooks.setVisible(false);
+
+        // Hide View Logs button
+        MenuItem viewLogs = menu.findItem(R.id.action_view_logs);
+        viewLogs.setVisible(false);
+
+        // Hide Delete Logs button
+        MenuItem deleteLogs = menu.findItem(R.id.action_delete_logs);
+        deleteLogs.setVisible(false);
     }
 
     /**

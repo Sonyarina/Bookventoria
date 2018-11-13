@@ -1,9 +1,8 @@
 /*
- * Created by Sonia M on 9/27/18 1:35 PM for educational purposes. The images and/or icons that
- *  were not created by me were obtained with permission from Freepik.com and/or
- *  flaticon.com.
+ * Created by Sonia M on 9/27/18 1:35 PM for educational purposes.
  *  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
- *  relevant to this project. Any additional guidance for specific methods is outlined in
+ *  relevant to this project (Pets app). Overriden methods use javadoc from Super Class.
+ *  Any additional guidance for specific methods is outlined in
  *  the javadocs for those specific methods.
  */
 
@@ -12,19 +11,17 @@ package com.example.android.bookventoria;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Loader;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.NavUtils;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
@@ -35,43 +32,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
-
-
-import com.example.android.bookventoria.data.BookContract.BookEntry;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
+import com.example.android.bookventoria.data.BookContract.BookEntry;
+
 /**
- * This class allows user to add a new book to the inventory or edit an existing one.
+ * This class allows user to add a new book to the inventory or edit or delete an existing one.
+ * Also implements LoaderManager/LoaderCallBacks<>
  */
 public class BookEditActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     /* Log Tag used for debugging purposes */
-    public static final String LOG_TAG = BookEditActivity.class.getSimpleName();
+    private static final String LOG_TAG = BookEditActivity.class.getSimpleName();
+
     /* View Tags for identifying views in onClickListener methods */
-    public static final String PRICE_TEXT_VIEW_TAG = "price_text_view_tag";
-    public static final String SUPPLIER_PHONE_TEXT_VIEW_TAG = "supplier_phone_text_view_tag";
-    public static final String BOOK_NAME_TEXT_VIEW_TAG = "book_name_text_view_tag";
+    private static final String PRICE_TEXT_VIEW_TAG = "price_text_view_tag";
+    private static final String SUPPLIER_PHONE_TEXT_VIEW_TAG = "supplier_phone_text_view_tag";
+    private static final String BOOK_NAME_TEXT_VIEW_TAG = "book_name_text_view_tag";
+
     /* Identifier for the book inventory data loader  */
     private static final int EXISTING_BOOK_LOADER = 0;
-    /* SharedPreferences to retrieve and store user preferences */
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor sharedPrefEditor;
-    // App Support Toolbar
-    Toolbar editToolbar;
+
     // TextInputLayout for Book Name
-    TextInputLayout bookNameTextInput;
+    private TextInputLayout bookNameTextInput;
     // Save Now button, which can be used in addition to the Done checkbox on the toolbar
-    TextView saveButtonTextView;
+    private Button saveButtonTextView;
     /* EditText field to enter the book's name   */
     private EditText bookNameEditText;
     /* EditText field to enter the book's author  */
@@ -89,6 +84,7 @@ public class BookEditActivity extends AppCompatActivity implements
     private EditText supplierPhoneEditText;
     /* EditText field to enter the book's genre */
     private Spinner mGenreSpinner;
+
     /**
      * Genre / category of the book.
      * 0 for unknown genre
@@ -108,8 +104,10 @@ public class BookEditActivity extends AppCompatActivity implements
     private int retrievedPrice = 0;
     private int retrievedQuantity = 0;
     private int retrievedSales = 0;
-    /* Boolean that determines whether activity should finish or not */
-    private boolean allowExit = true;
+
+    /* Boolean that keeps track of whether the FAB is visible */
+    private boolean isFabVisible = true;
+
     /**
      * OnTouchListener that listens for any user touches on a View, implying that they are modifying
      * the view, and we change the mBookHasChanged boolean to true.
@@ -125,28 +123,33 @@ public class BookEditActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_editor);
+        setContentView(R.layout.activity_editor);
 
-        // Initialize SharedPreferences
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Set up toolbar (action bar)
+        Toolbar editToolbar = (Toolbar) findViewById(R.id.edit_toolbar);
+        setSupportActionBar(editToolbar);
+
+        // Configure the Up button on toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Find Save Now button, which can be used in addition to the Done checkbox on the toolbar
-        saveButtonTextView = (TextView) findViewById(R.id.save_button);
+        saveButtonTextView = findViewById(R.id.save_button_edit);
 
         // Find TextInputLayout field for Book Name
         bookNameTextInput = findViewById(R.id.text_input_book_name);
 
-        // Examine the intent that was used to launch this activity,
-        // in order to figure out if we're adding a new book to the database or editing an existing
+        // Retrieve the intent that was used to launch this activity. It contains the uri
+        // which indicates if we're adding a new book to the database or editing an existing
         // one.
         mCurrentBookUri = getIntent().getData();
 
+        // Use conditional statement to determine the next steps
         if (mCurrentBookUri == null) {
             // Uri is null, set title to display "Add a Book"
             setTitle(R.string.editor_activity_title_new_book);
 
             // Set Bottom button to say "Save"
-            saveButtonTextView.setText(R.string.menu_action_save);
+            saveButtonTextView.setText(getString(R.string.save_button_text));
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             // (It doesn't make sense to delete a book that hasn't been created yet.)
@@ -156,9 +159,11 @@ public class BookEditActivity extends AppCompatActivity implements
             setTitle(R.string.editor_activity_title_edit_book);
 
             // Set Bottom button to say "Update"
-            saveButtonTextView.setText(R.string.editor_section_update_button_text);
+            saveButtonTextView.setText(getString(R.string.editor_section_update_button_text));
 
-            // Show hint on Book Name text view
+            // Show hint on Book Name text view. This step is included to address a styling issue
+            // regarding the look of the TextInput field when it's automatically selected
+            // (because it's the first field)
             bookNameTextInput.setHintEnabled(true);
 
             // Initialize the loader to retrieve book data
@@ -177,31 +182,57 @@ public class BookEditActivity extends AppCompatActivity implements
         supplierPhoneEditText = (EditText) findViewById(R.id.edit_supplier_phone);
 
         // Set additional tags on EditText fields that will use a mask
-        priceEditText.setTag("Price");
-        supplierPhoneEditText.setTag("Phone");
-
-        // Set up toolbar (action bar)
-        editToolbar = (Toolbar) findViewById(R.id.edit_toolbar);
-        setSupportActionBar(editToolbar);
-
-        // Configure the Up button on toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        priceEditText.setTag(PRICE_TEXT_VIEW_TAG);
+        supplierPhoneEditText.setTag(SUPPLIER_PHONE_TEXT_VIEW_TAG);
 
         // Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.editor_fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.editor_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideKeyboardThenSave();
+                //hideKeyboardThenSave();
+                saveBook();
             }
         });
 
-        // Call method to set up all the listeners needed
-        setupListeners();
+        // Find reference to NestedScrollView
+        NestedScrollView nestedScrollView = findViewById(R.id.editor_nested_scroll_view);
+
+        // add Scroll change listener so that menu options
+        // can be toggled based on fab visibility. Tips and guidance for how to use this listener
+        // found on StackOverflow.com:
+        // https://stackoverflow.com/questions/34560770/hide-fab-in-nestedscrollview-when-scrolling
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX,
+                                       int oldScrollY) {
+                // Hide fab when user scrolls down
+                if (scrollY > oldScrollY) {
+                    fab.hide();
+
+                    // Update boolean value
+                    isFabVisible = false;
+                    // Call method to Invalidate Menu options so that onPrepareOptionsMenu can be called
+                    // and the "save book" menu option will be shown on the toolbar
+                    invalidateOptionsMenu();
+
+                } else {
+                    // Show fab when user scrolls all the way back up
+                    fab.show();
+                    // Update boolean value
+                    isFabVisible = true;
+                    // Call method to Invalidate Menu options so that onPrepareOptionsMenu can
+                    // be called and the "save book" menu option will be hidden from the toolbar
+                    invalidateOptionsMenu();
+                }
+            }
+        });
 
         // Call method to set up the spinner which contains the Genre selections
         setupSpinner();
 
+        // Call method to set up all the listeners needed
+        setupListeners();
     }
 
     /**
@@ -288,7 +319,9 @@ public class BookEditActivity extends AppCompatActivity implements
         });
 
         // Add Text Changed Listener to BookName field. This will be in effect when users are
-        // adding new books. The javadocs for the TextWatcher methods are omitted this time since
+        // adding new books. The purpose of the listener was to address style-related issues
+        // that came about due to this field being the first field on the form.
+        // The javadocs for the TextWatcher methods are omitted this time since
         // they are exactly the same as the ones used above when setting listener on the price
         // EditText field
         bookNameEditText.addTextChangedListener(new TextWatcher() {
@@ -301,7 +334,6 @@ public class BookEditActivity extends AppCompatActivity implements
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // If adding a new book, show the hint if the user clicks on the Book Name
                 if (mCurrentBookUri == null) {
-                    Log.v(LOG_TAG, "Book Name field was clicked");
                     bookNameTextInput.setHintEnabled(true);
                     mBookHasChanged = true;
                 }
@@ -315,15 +347,13 @@ public class BookEditActivity extends AppCompatActivity implements
         });
 
         // Add listener to Save/Update button. When the button is clicked, the
-        // hideKeyboardThenSave method is called.
+        // saveBook method is called.
         saveButtonTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideKeyboardThenSave();
+                saveBook();
             }
         });
-
-
     }
 
     /**
@@ -342,7 +372,8 @@ public class BookEditActivity extends AppCompatActivity implements
         // Apply the adapter to the spinner
         mGenreSpinner.setAdapter(genreSpinnerAdapter);
 
-        // Set the integer to the constant values
+        // Set Listener that will immediately update the int variable mGenre to the correct
+        // corresponding GENRE constant value, as outlined in the BookContract class
         mGenreSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -377,6 +408,7 @@ public class BookEditActivity extends AppCompatActivity implements
             }
 
             // Because AdapterView is an abstract class, onNothingSelected must be defined
+            // The default value will be "Unknown"
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 mGenre = 0; // Unknown
@@ -413,26 +445,19 @@ public class BookEditActivity extends AppCompatActivity implements
         return values;
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu.
+     * @return Boolean value must return true for the menu to be displayed;
+     * if you return false it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_editor, menu);
         return true;
-    }
-
-    /**
-     * Combines three different methods when user presses fab or saves form. First it hides the
-     * keyboard, then it calls the saveBook  method, then it returns the user to the main activity
-     */
-    public void hideKeyboard() {
-        // First, remove window focus to hide keyboard
-        // Code snippet to hide keyboard obtained from stackoverflow.com
-        View focus = this.getCurrentFocus();
-        if (focus != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
-        }
     }
 
     /**
@@ -480,29 +505,10 @@ public class BookEditActivity extends AppCompatActivity implements
                             }
                         }
                     };
-
+            // Pass the created listener in to the showUnsavedChangesDialog method
             showUnsavedChangesDialog(discardButtonClickListener);
         }
     }
-
-
-    /**
-     * Combines three different methods when user presses fab or saves form. First it hides the
-     * keyboard, then it calls the saveBook  method, then it returns the user to the main activity
-     */
-    public void hideKeyboardThenSave() {
-        // First, remove window focus to hide keyboard
-        // Code snippet to hide keyboard obtained from stackoverflow.com
-        View focus = this.getCurrentFocus();
-        if (focus != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
-        }
-
-        // Call method to Save or Update Book
-        saveBook();
-    }
-
 
     /**
      * From superclass doc: This hook is called whenever an item in your options menu is selected.
@@ -518,14 +524,6 @@ public class BookEditActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.action_save:
                 // Respond to a click on the "Save" menu option
-                // First, remove window focus to hide keyboard
-                // Code snippet to hide keyboard obtained from stackoverflow.com
-                View focus = this.getCurrentFocus();
-                if (focus != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
-                }
-
                 // Call method to validate data and then save or update book
                 saveBook();
                 return true;
@@ -560,10 +558,26 @@ public class BookEditActivity extends AppCompatActivity implements
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        // If this is a new book, hide the "Delete" menu item.
+        // If this is a new book, hide the "Delete" menu item and close book menu item.
         if (mCurrentBookUri == null) {
-            MenuItem menuItem = menu.findItem(R.id.action_delete);
-            menuItem.setVisible(false);
+            // Find reference to delete menu item
+            MenuItem deleteMenuItem = menu.findItem(R.id.action_delete);
+            deleteMenuItem.setVisible(false);
+
+            // Find reference to close menu item
+            MenuItem closeBookMenuItem = menu.findItem(R.id.action_close);
+            closeBookMenuItem.setVisible(false);
+        }
+
+        // Find reference to save menu item
+        MenuItem saveMenuItem = menu.findItem(R.id.action_save);
+
+        // If Fab is visible, hide save menu item
+        if (isFabVisible) {
+            saveMenuItem.setVisible(false);
+        } else {
+            // Fab is not visible, show save menu item
+            saveMenuItem.setVisible(true);
         }
         return true;
     }
@@ -576,13 +590,17 @@ public class BookEditActivity extends AppCompatActivity implements
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Set message (question) that will be shown on the warning
         builder.setMessage(R.string.delete_dialog_msg);
+        // Set text for Button that will confirm the user wants to proceed with the delete action
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the book.
+                // User clicked the "Delete" button, so delete the book by calling method
+                // deleteBook()
                 deleteBook();
             }
         });
+        // Set text for the button the user can click to cancel the operation
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
@@ -593,7 +611,7 @@ public class BookEditActivity extends AppCompatActivity implements
             }
         });
 
-        // Create and show the AlertDialog
+        // Finally, create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -621,7 +639,8 @@ public class BookEditActivity extends AppCompatActivity implements
                     }
                 };
 
-        // Show dialog that there are unsaved changes
+        // Show dialog that there are unsaved changes by calling method and passing in the
+        // listener created above as a parameter
         showUnsavedChangesDialog(discardButtonClickListener);
     }
 
@@ -672,15 +691,13 @@ public class BookEditActivity extends AppCompatActivity implements
         // delete operation was successful
         if (rowsDeleted != 0) {
             // the deletion was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_delete_book_successful),
+            Toast.makeText(getApplicationContext(), getString(R.string.editor_delete_book_successful),
                     Toast.LENGTH_SHORT).show();
 
         } else {
             // the deletion was unsuccessful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_delete_book_failed),
+            Toast.makeText(getApplicationContext(), getString(R.string.editor_delete_book_failed),
                     Toast.LENGTH_SHORT).show();
-
-            // Update text to be added to log
         }
 
         // Return to main activity
@@ -713,15 +730,32 @@ public class BookEditActivity extends AppCompatActivity implements
      * Calls method that will either add a new book or update an existing book in the books database
      */
     private void saveBook() {
-        // Check the Uri, if it's null, a new book is being inserted. Call insertBook method
-        if (mCurrentBookUri == null) {
-            Log.v(LOG_TAG, "saveBook, Calling insertBook");
-            insertBook();
-        } else {
-            Log.v(LOG_TAG, "saveBook, Calling updateBook");
+        // Find reference to error text views
+        TextView errorTextViewTop = findViewById(R.id.error_textview_1);
+        TextView errorTextViewBottom = findViewById(R.id.error_textview_2);
 
-            // If the Uri is not null, a book is being updated. Call the updateBook method
-            updateBook();
+        // Validate input (check for null fields) before adding to the database
+        if (!validateInput()) {
+            // If the input is incomplete or invalid, show toast message asking for user to
+            Toast.makeText(getApplicationContext(), R.string.editor_null_fields_alert,
+                    Toast.LENGTH_SHORT).show();
+
+            // Show Error TextViews
+            errorTextViewTop.setVisibility(View.VISIBLE);
+            errorTextViewBottom.setVisibility(View.VISIBLE);
+        } else {
+            // Hide Error TextViews if all the required fields are properly filled
+            errorTextViewTop.setVisibility(View.GONE);
+            errorTextViewBottom.setVisibility(View.GONE);
+
+            // If no values are null, then either update or save based on URI
+            // Check the Uri, if it's null, a new book is being inserted. Call insertBook method
+            if (mCurrentBookUri == null) {
+                insertBook();
+            } else {
+                // If the Uri is not null, a book is being updated. Call the updateBook method
+                updateBook();
+            }
         }
     }
 
@@ -729,26 +763,6 @@ public class BookEditActivity extends AppCompatActivity implements
      * Insert a new book into the database
      */
     private void insertBook() {
-        // First Check if any information has been entered into the form
-        // If all the fields are null, return to last activity / main screen
-/*        if (allFieldsNull()) {
-            // Nothing was added, return to main screen
-            Log.v(LOG_TAG, "Nothing was added, returning to main screen!");
-
-            // Return to main activity
-            NavUtils.navigateUpFromSameTask(BookEditActivity.this);
-            return;
-        }*/
-
-        // At least one value was entered. Validate input before adding to the database
-        if (!validateInput()) {
-            // If the input is incomplete or invalid, show toast message asking for user to
-            Toast.makeText(this, getString(R.string.editor_null_fields_alert),
-                    Toast.LENGTH_SHORT).show();
-
-            // Return, but stay on editor screen
-            return;
-        }
 
         // Reaching this step means all the required fields were filled
         // Extract strings from the EditText views of required fields and assign to local variables
@@ -758,9 +772,10 @@ public class BookEditActivity extends AppCompatActivity implements
         String supplierPhoneString = supplierPhoneEditText.getText().toString().trim();
 
         // Strip the price field of special characters like the $, periods, or commas
+        // Create local String to store the EditText String
         String stripPriceText = priceEditText.getText().toString().trim();
-        Log.v(LOG_TAG, "Price field has: " + stripPriceText);
 
+        // Use replace() method to remove the special characters
         stripPriceText = stripPriceText.replace("$", "");
         stripPriceText = stripPriceText.replace(",", "");
         stripPriceText = stripPriceText.replace(".", "");
@@ -769,6 +784,8 @@ public class BookEditActivity extends AppCompatActivity implements
 
         // Now parse the final result so it can be stored in int (priceInt)
         int priceInt = Integer.parseInt(stripPriceText);
+
+        Log.v(LOG_TAG, "Parsed Price field is now: " + priceInt);
 
         // If any of the OPTIONAL fields were left blank, replace String/integer with default value
         // The optional fields are Author, Genre, and Sales
@@ -798,15 +815,14 @@ public class BookEditActivity extends AppCompatActivity implements
                 values);
 
         // Show a toast message depending on whether or not the insertion was successful
-
         if (newUri == null) {
             // If the new content URI is null, then there was an error with insertion.
-            Toast.makeText(this, getString(R.string.editor_save_error),
+            Toast.makeText(getApplicationContext(), getString(R.string.editor_save_error),
                     Toast.LENGTH_SHORT).show();
 
         } else {
             // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_book_saved),
+            Toast.makeText(getApplicationContext(), getString(R.string.editor_book_saved),
                     Toast.LENGTH_SHORT).show();
         }
 
@@ -818,15 +834,7 @@ public class BookEditActivity extends AppCompatActivity implements
      * Update an existing book in the database
      */
     private void updateBook() {
-        // Check if any of the required fields are now blank
-        if (!validateInput()) {
-            // If the input is incomplete or invalid, show toast message asking for user to
-            Toast.makeText(this, getString(R.string.editor_null_fields_alert),
-                    Toast.LENGTH_SHORT).show();
 
-            // Return, but stay on editor screen
-            return;
-        }
         // Extract strings from the EditText views of required fields and assign to local variables
         String nameString = bookNameEditText.getText().toString().trim();
         int quantityInt = Integer.parseInt(quantityEditText.getText().toString().trim());
@@ -835,13 +843,10 @@ public class BookEditActivity extends AppCompatActivity implements
 
         // Strip the price field of special characters like the $, periods, or commas
         String stripPriceText = priceEditText.getText().toString().trim();
-        Log.v(LOG_TAG, "Price field has: " + stripPriceText);
 
         stripPriceText = stripPriceText.replace("$", "");
         stripPriceText = stripPriceText.replace(",", "");
         stripPriceText = stripPriceText.replace(".", "");
-
-        Log.v(LOG_TAG, "Price field is now: " + stripPriceText);
 
         // Now parse the final result so it can be stored in int (priceInt)
         int priceInt = Integer.parseInt(stripPriceText);
@@ -870,10 +875,8 @@ public class BookEditActivity extends AppCompatActivity implements
                 && supplierPhoneString.equals(retrievedSupplierPhone)) {
             // Nothing has changed, show toast message and
             // Return to main activity
-            Toast.makeText(this, getString(R.string.update_nothing_changed),
+            Toast.makeText(getApplicationContext(), getString(R.string.update_nothing_changed),
                     Toast.LENGTH_SHORT).show();
-
-            Log.v(LOG_TAG, "Nothing was updated!");
 
         } else {
             // Create a ContentValues object where column names are the keys,
@@ -927,8 +930,6 @@ public class BookEditActivity extends AppCompatActivity implements
                 Log.v(LOG_TAG, getString(R.string.updated_supplier_Phone));
             }
 
-            Log.v(LOG_TAG, values.toString());
-
             // Defines a new int variable that receives the number of rows updated
             int rowsUpdated = getContentResolver().update(
                     mCurrentBookUri,         // Uri of book
@@ -940,12 +941,12 @@ public class BookEditActivity extends AppCompatActivity implements
             // update was successful
             if (rowsUpdated != 0) {
                 // the update was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.update_book_successful),
+                Toast.makeText(getApplicationContext(), getString(R.string.update_book_successful),
                         Toast.LENGTH_SHORT).show();
 
             } else {
                 // Unable to update book
-                Toast.makeText(this, getString(R.string.update_book_error),
+                Toast.makeText(getApplicationContext(), getString(R.string.update_book_error),
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -1086,9 +1087,6 @@ public class BookEditActivity extends AppCompatActivity implements
                     break;
             }
         }
-
-        // Hide keyboard
-        hideKeyboard();
     }
 
     /**

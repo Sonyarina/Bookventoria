@@ -81,6 +81,4 @@ public class GenresList {
     public void setGenreCode(int genreCode) {
         this.genreCode = genreCode;
     }
-
-
 }

@@ -21,7 +21,7 @@
         <activity
             android:name=".BookEditActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/EditorTheme2"
+            android:theme="@style/Editor_Theme"
             android:windowSoftInputMode="stateHidden">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->

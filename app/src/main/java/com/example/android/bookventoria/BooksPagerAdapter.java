@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 /**
  * {@link BooksPagerAdapter} is a {@link FragmentPagerAdapter}. According to superclass javadoc:
@@ -17,19 +16,21 @@ import android.util.Log;
 public class BooksPagerAdapter extends FragmentPagerAdapter {
 
     /* Tag for the log messages */
-    public static final String LOG_TAG = BooksPagerAdapter.class.getSimpleName();
+    private static final String LOG_TAG = BooksPagerAdapter.class.getSimpleName();
     /**
      * The listener and interface below is used to attach addOnBackStackChangedListener listener
-     * to the FragmentManager to be notified when the user presses the up or back button.
+     * to the FragmentManager to be notified when the user presses the up or back button. This
+     * feature is not really implemented at the moment but will potentially be needed in future
+     * versions of this app.
      * Guidance found at article: Learn how to use the OnBackStackChangedListener to get the current Fragment
      * https://why-android.com/2016/03/29/learn-how-to-use-the-onbackstackchangedlistener
      */
     public MyOnBackStackChangedListener listener;
+
     /**
      * Context of the app
      */
     private Context mContext;
-
 
     /**
      * Required public constructor for BooksPagerAdapter
@@ -45,17 +46,6 @@ public class BooksPagerAdapter extends FragmentPagerAdapter {
         if (context instanceof MyOnBackStackChangedListener) {
             listener = (MyOnBackStackChangedListener) context;
         }
-
-/*        // Attach addOnBackStackChangedListener listener to the FragmentManager to be notified
-        // when the user presses the up or back button.
-        fm.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                Log.v(LOG_TAG, "OnBackStackListener changed");
-
-                listener.fragmentChanged();
-            }
-        });*/
     }
 
     /**
@@ -69,10 +59,8 @@ public class BooksPagerAdapter extends FragmentPagerAdapter {
             return new BookListFragment();
         } else if (position == 1) {
             return new GenresListFragment();
-        } else if (position == 2) {
-            return new SuppliersFragment();
         } else {
-            return new ReportsFragment();
+            return new SuppliersFragment();
         }
     }
 
@@ -81,7 +69,7 @@ public class BooksPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     /**
@@ -100,10 +88,8 @@ public class BooksPagerAdapter extends FragmentPagerAdapter {
             return mContext.getString(R.string.bottom_nav_books);
         } else if (position == 1) {
             return mContext.getString(R.string.bottom_nav_genres);
-        } else if (position == 2) {
-            return mContext.getString(R.string.bottom_nav_suppliers);
         } else {
-            return mContext.getString(R.string.bottom_nav_reports);
+            return mContext.getString(R.string.bottom_nav_suppliers);
         }
     }
 

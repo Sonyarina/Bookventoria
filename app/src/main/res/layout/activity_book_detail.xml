@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Created by Sonia M on 9/27/18 3:57 PM for educational purposes. The images and/or icons that
-  ~  were not created by me were obtained with permission from Freepik.com and/or
-  ~  flaticon.com. Book and author names are fiction.
+  ~ Created by Sonia M on 9/27/18 3:57 PM for educational purposes. Book, author, and supplier
+  names are fictitious.
   -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,7 +24,7 @@
             android:background="@color/secondaryColor"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/DetailToolbar"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <!--Book Name-->
         <TextView
@@ -55,7 +54,7 @@
             <!--Book Overview Section-->
             <TextView
                 android:id="@+id/inventory_section_heading"
-                style="@style/DetailSections4"
+                style="@style/DetailSectionHeadingGrey"
                 android:background="@color/white_background"
                 android:paddingBottom="@dimen/narrow_activity_margin"
                 android:paddingTop="@dimen/activity_margin"
@@ -64,14 +63,15 @@
             <!--Genre Section-->
             <TextView
                 android:id="@+id/genre_section_heading"
-                style="@style/DetailMiniHeadings3"
+                style="@style/DetailMiniHeadingsGreen"
                 android:background="@color/white_background"
                 android:paddingTop="@dimen/activity_margin"
                 android:text="@string/formatted_column_book_genre" />
 
+            <!--Genre-->
             <TextView
                 android:id="@+id/genre"
-                style="@style/DetailFields2"
+                style="@style/DetailFieldsValues"
                 android:layout_marginBottom="@dimen/divider_size"
                 android:background="@color/white_background"
                 android:paddingBottom="@dimen/activity_margin"
@@ -80,7 +80,7 @@
             <!--Book Quantity-->
             <TextView
                 android:id="@+id/quantity_heading"
-                style="@style/DetailMiniHeadings3"
+                style="@style/DetailMiniHeadingsGreen"
                 android:layout_marginTop="@dimen/divider_size"
                 android:background="@color/white_background"
                 android:paddingBottom="@dimen/narrow_activity_margin"
@@ -98,12 +98,14 @@
                 android:paddingLeft="@dimen/detail_counter_margin"
                 android:paddingRight="@dimen/detail_counter_margin">
 
+                <!--Decrement button-->
                 <TextView
                     android:id="@+id/decrement"
-                    style="@style/CounterAdjustButtons2"
+                    style="@style/DetailQuantityAdjustButtons"
                     android:layout_weight="1"
                     android:text="@string/decrement" />
 
+                <!--Quantity-->
                 <TextView
                     android:id="@+id/quantity"
                     style="@style/CounterQuantityText"
@@ -114,9 +116,10 @@
                     android:gravity="center"
                     tools:text="@string/editor_activity_quantity_sample" />
 
+                <!--Increment-->
                 <TextView
                     android:id="@+id/increment"
-                    style="@style/CounterAdjustButtons2"
+                    style="@style/DetailQuantityAdjustButtons"
                     android:layout_weight="1"
                     android:text="@string/increment" />
             </LinearLayout>
@@ -133,7 +136,7 @@
                 <!--Vertical Linear Layout for Book Sales-->
                 <LinearLayout
                     android:id="@+id/sales_section_view"
-                    style="@style/linear_layout_sections2"
+                    style="@style/SalesPriceLinearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/divider_size"
@@ -144,20 +147,21 @@
                     android:paddingStart="@dimen/detail_horizontal_margin_sales">
 
                     <TextView
-                        style="@style/DetailMiniHeadings2"
+                        style="@style/DetailMiniHeadingsGreen_MarginTop"
                         android:layout_marginTop="@dimen/activity_margin"
                         android:text="@string/editor_activity_sales_heading" />
 
+                    <!--Sales-->
                     <TextView
                         android:id="@+id/sales"
-                        style="@style/DetailFields2"
+                        style="@style/DetailFieldsValues"
                         tools:text="@string/editor_activity_quantity_sample" />
                 </LinearLayout>
 
                 <!--Vertical Linear Layout for Book Price-->
                 <LinearLayout
                     android:id="@+id/price_section_view"
-                    style="@style/linear_layout_sections2"
+                    style="@style/SalesPriceLinearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/divider_size"
@@ -167,15 +171,15 @@
                     android:paddingEnd="@dimen/detail_horizontal_margin_price"
                     android:paddingRight="@dimen/detail_horizontal_margin_price">
 
-                    <!--Book Price-->
                     <TextView
-                        style="@style/DetailMiniHeadings2"
+                        style="@style/DetailMiniHeadingsGreen_MarginTop"
                         android:layout_marginTop="@dimen/activity_margin"
                         android:text="@string/editor_activity_price_heading" />
 
+                    <!--Book Price-->
                     <TextView
                         android:id="@+id/price"
-                        style="@style/DetailFields2"
+                        style="@style/DetailFieldsValues"
                         tools:text="@string/editor_activity_price_sample" />
                 </LinearLayout>
             </LinearLayout>
@@ -183,38 +187,38 @@
             <!--Supplier Info Section-->
             <TextView
                 android:id="@+id/supplier_section_heading"
-                style="@style/DetailSections4"
+                style="@style/DetailSectionHeadingGrey"
                 android:background="@color/white_background"
                 android:paddingBottom="@dimen/activity_margin"
                 android:paddingTop="@dimen/activity_margin"
                 android:text="@string/editor_section_supplier_details" />
 
-            <!--Supplier Name-->
             <TextView
-                style="@style/DetailMiniHeadings3"
+                style="@style/DetailMiniHeadingsGreen"
                 android:text="@string/editor_activity_supplier_name_heading" />
 
+            <!--Supplier Name-->
             <TextView
                 android:id="@+id/supplier_name"
-                style="@style/DetailFields2"
+                style="@style/DetailFieldsValues"
                 android:layout_marginBottom="@dimen/divider_size"
                 tools:text="@string/editor_activity_supplier_name_sample" />
 
-            <!--Supplier Phone Number-->
             <TextView
-                style="@style/DetailMiniHeadings3"
+                style="@style/DetailMiniHeadingsGreen"
                 android:layout_marginTop="@dimen/divider_size"
                 android:paddingTop="@dimen/activity_margin"
                 android:text="@string/editor_activity_supplier_phone_heading" />
 
+            <!--Supplier Phone Number-->
             <TextView
                 android:id="@+id/supplier_phone"
-                style="@style/DetailFields2"
+                style="@style/DetailFieldsValues"
                 android:paddingBottom="@dimen/activity_margin"
                 tools:text="@string/editor_activity_supplier_phone_sample" />
 
             <!--Call Now Button-->
-            <TextView
+            <Button
                 android:id="@+id/call_now_button"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/text_button_height"
@@ -224,12 +228,11 @@
                 android:background="@color/secondaryDarkColor"
                 android:clickable="true"
                 android:focusable="true"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:padding="@dimen/extra_narrow_activity_margin"
                 android:text="@string/detail_call_now_button"
-                android:textAllCaps="true"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="@color/primaryTextColor" />
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/editor_save_button_text_size" />
         </LinearLayout>
 
         <!--FAB button which will be used to edit book-->
@@ -242,11 +245,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="@dimen/default_activity_margin"
             android:layout_marginRight="@dimen/default_activity_margin"
-            android:layout_marginTop="158dp"
-            android:elevation="@dimen/cardview_default_elevation"
-            android:src="@drawable/baseline_edit_white_24"
+            android:layout_marginTop="@dimen/detail_fab_vertical_margin"
+            android:src="@drawable/menu_icon_edit"
             app:backgroundTint="@color/secondaryAccent" />
-
-
     </RelativeLayout>
 </ScrollView>

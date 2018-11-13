@@ -1,7 +1,5 @@
 /*
- * Created by Sonia M on 9/26/18 6:12 PM for educational purposes. The images and/or icons that
- *  were not created by me were obtained with permission from Freepik.com and/or
- *  flaticon.com.
+ * Created by Sonia M on 9/26/18 6:12 PM for educational purposes.
  *  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
  *  relevant to this project. Any additional guidance for specific methods is outlined in
  *  the javadocs for those specific methods.
@@ -21,22 +19,22 @@ import android.provider.BaseColumns;
 public final class BookContract {
 
     /**
-     * The name for the entire content provider.
+     * Content provider name.
      */
     public static final String CONTENT_AUTHORITY = "com.example.android.bookventoria";
     /**
-     * Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
-     * the content provider.
+     * CONTENT_AUTHORITY used to create the base of all URI's which will be used by this and
+     * other apps to contact the content provider.
      */
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     /**
-     * Possible path (appended to base content URI for possible URI's)
-     * For instance, content://com.example.android.bookventoria/books/ is a valid path for
-     * looking at book data.
+     * Books path (appended to base content URI for possible URI's) for
+     * looking at book data from the books table.
      */
     public static final String PATH_BOOKS = "books";
     /**
-     * Path for suppliers
+     * Path for suppliers. Only used in the Suppliers tab, where the query must include the
+     * keywords DISTINCT and GROUP BY
      */
     public static final String PATH_SUPPLIERS = "suppliers";
 
@@ -81,12 +79,8 @@ public final class BookContract {
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BOOKS;
 
-        // Database Table name: books
+        // Database Table name: books. The table column names will follow this declaration.
         public static final String TABLE_NAME = "books";
-
-        /*
-        The table columns are:
-         */
 
         // This column contains the Book's Unique ID, Data Type: INTEGER
         public static final String _ID = BaseColumns._ID;

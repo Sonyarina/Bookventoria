@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Tips and guidance for creating this item received from Udacity lesson on
-SharedPreferences -->
+<?xml version="1.0" encoding="utf-8"?><!-- Tips and guidance for creating this item received
+from Udacity lesson on SharedPreferences -->
 
 <!-- Layout for Settings Activity, containing a Preference Fragment -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,5 +27,5 @@ SharedPreferences -->
         android:id="@+id/settings_options"
         android:name="com.example.android.bookventoria.SettingsActivity$BooksPreferenceFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

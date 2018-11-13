@@ -1,31 +1,16 @@
-/*
- * Created by Sonia M on 9/29/18 5:50 PM for educational purposes. The images and/or icons that
- *  were not created by me were obtained with permission from Freepik.com and/or
- *  flaticon.com.
- *  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
- *  relevant to this project. Any additional guidance for specific methods is outlined in
- *  the javadocs for those specific methods.
- */
-
-package com.example.android.bookventoria;/*
- * Created by Sonia M on 9/29/18 5:22 PM for educational purposes. The images and/or icons that
- *  were not created by me were obtained with permission from Freepik.com and/or
- *  flaticon.com.
- *  Tips, Guidance, and in some cases code snippets are obtained from Udacity Lessons
- *  relevant to this project. Any additional guidance for specific methods is outlined in
- *  the javadocs for those specific methods.
- */
+package com.example.android.bookventoria;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 
 import com.example.android.bookventoria.data.BookContract.BookEntry;
 
 /**
  * Helper methods and constants related to storing or retrieving data in the app. Created using
- * knowledge obtained in Android Basics course for News App Project
+ * knowledge obtained in Udacity's Android Basics course.
  */
 public final class QueryUtils {
 
@@ -41,12 +26,17 @@ public final class QueryUtils {
     /* Supplier Code Key */
     public static final String SUPPLIER_CODE_KEY = "supplier_code_key";
 
+    /* SharedPreference key for boolean: Any Books In Stock? */
+    public static final String ANY_BOOKS_BOOLEAN_KEY = "any_books_boolean_key";
+
+    /* SharedPreference key for total number of books in stock */
+    public static final String BOOK_COUNT_INT_KEY = "book_count_int_key";
+
     /* Query Code Values used to determine which query to run */
     public static final int QUERY_ALL_BOOKS = 0;
     public static final int QUERY_LOW_INVENTORY = 1;
     public static final int QUERY_GENRE = 2;
     public static final int QUERY_SUPPLIER_BOOKS = 3;
-    public static final int QUERY_REPORTS = 4;
     public static final int QUERY_ALL_SALES = 5;
 
     /* Identifier for the selection key used in Bundle passed in to loader  */
@@ -143,7 +133,39 @@ public final class QueryUtils {
 
         // Remove key that contains history, if there is one
         if (sharedPreferences.contains(LOG_EVENT_HISTORY_KEY)) {
-            sharedPreferences.edit().remove(LOG_EVENT_HISTORY_KEY).apply();
+            sharedPreferences.edit().remove(LOG_EVENT_HISTORY_KEY).commit();
+        }
+    }
+
+    /**
+     * Returns String containing date and time
+     * @param context The context needed
+     * @return string showing current date and time
+     */
+    public static String dateTimeString(Context context) {
+
+        return DateUtils.formatDateTime(context, System.currentTimeMillis(),
+                DateUtils
+                        .FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
+    }
+
+    /**
+     * Updates boolean that keeps track of whether there are any books in the database
+     *
+     * @param context  Context needed to use SharedPreferences
+     * @param anyBooks the new boolean value
+     */
+    public static void updateAnyBooksBoolean(Context context, boolean anyBooks) {
+
+        // Initialize SharedPreferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
+                (context);
+
+        // Update sharedpreferences based on boolean value
+        if (anyBooks) {
+            sharedPreferences.edit().putBoolean(ANY_BOOKS_BOOLEAN_KEY, true).commit();
+        } else {
+            sharedPreferences.edit().putBoolean(ANY_BOOKS_BOOLEAN_KEY, false).commit();
         }
     }
 
@@ -194,7 +216,7 @@ public final class QueryUtils {
     }
 
     /**
-     * Creates ContentValues array with demo data
+     * Creates ContentValues array with demo/dummy data
      *
      * @param context Context needed to use retrieve resources
      * @return values ContentValues array with demo data
@@ -226,6 +248,7 @@ public final class QueryUtils {
             currentBookValues.put(BookEntry.COLUMN_BOOK_SUPPLIER_PHONE, supplierPhones[i]);
             values[i] = currentBookValues;
         }
+        // Return ContentValues array
         return values;
     }
 }

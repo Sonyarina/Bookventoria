@@ -14,8 +14,8 @@
     <TextView
         android:id="@+id/listview_header_text"
         style="@style/DataSummaryHeading"
-        android:layout_marginTop="@dimen/narrow_activity_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/narrow_activity_margin"
         tools:text="@string/inventory_summary_footer" />
 </LinearLayout>

@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--Created by Sonia M for educational purposes. All book
+names, author names, Supplier Names, and Phone Numbers are fictional. Any similarities to real life
+persons and/or companies are purely coincidental.-->
 <resources>
     <!-- These are the options displayed in the genre drop-down Spinner -->
     <string-array name="array_genre_options">
@@ -24,6 +26,11 @@
         <item>Miracles Everyday</item>
         <item>Cooking With Sam</item>
         <item>The Boy Who Laughed</item>
+        <item>Lucky Me</item>
+        <item>Happy To See Him</item>
+        <item>Forget About It</item>
+        <item>The Drive Through</item>
+        <item>Help For Hoarders</item>
     </string-array>
 
     <!--Demo data: Author Names-->
@@ -33,6 +40,11 @@
         <item>Johnny Waters</item>
         <item>Lulu Smith</item>
         <item>Max Lewis</item>
+        <item>Julia Long</item>
+        <item>Marcus Jones</item>
+        <item>Larry Williams</item>
+        <item>Veronica Venus</item>
+        <item>Piper Hays</item>
     </string-array>
 
     <!--Demo data: Book Genres-->
@@ -42,6 +54,11 @@
         <item>7</item>
         <item>9</item>
         <item>4</item>
+        <item>3</item>
+        <item>5</item>
+        <item>6</item>
+        <item>2</item>
+        <item>1</item>
     </integer-array>
 
     <!--Demo data: Book Prices-->
@@ -51,6 +68,11 @@
         <item>2000</item>
         <item>600</item>
         <item>1000</item>
+        <item>599</item>
+        <item>299</item>
+        <item>499</item>
+        <item>199</item>
+        <item>799</item>
     </integer-array>
 
     <!--Demo data: Book Quantity-->
@@ -58,8 +80,13 @@
         <item>10</item>
         <item>25</item>
         <item>60</item>
-        <item>90</item>
+        <item>3</item>
         <item>32</item>
+        <item>15</item>
+        <item>9</item>
+        <item>12</item>
+        <item>30</item>
+        <item>50</item>
     </integer-array>
 
     <!--Demo data: Book Sales-->
@@ -69,10 +96,20 @@
         <item>9</item>
         <item>2</item>
         <item>8</item>
+        <item>0</item>
+        <item>88</item>
+        <item>33</item>
+        <item>1</item>
+        <item>8</item>
     </integer-array>
 
     <!--Demo data: Supplier Name-->
     <string-array name="supplier_name">
+        <item>Mars Books</item>
+        <item>Galaxy Books</item>
+        <item>Heartstring Books</item>
+        <item>Home Life Books</item>
+        <item>Mars Books</item>
         <item>Mars Books</item>
         <item>Galaxy Books</item>
         <item>Heartstring Books</item>
@@ -87,8 +124,14 @@
         <item>(470)987-9566</item>
         <item>(212)560-4141</item>
         <item>(888)563-1477</item>
+        <item>(888)563-1477</item>
+        <item>(800)222-4444</item>
+        <item>(470)987-9566</item>
+        <item>(212)560-4141</item>
+        <item>(888)563-1477</item>
     </string-array>
 
+    <!--String array with Order By labels-->
     <string-array name="settings_order_by_labels">
         <item>@string/settings_order_by_book_id_label</item>
         <item>@string/settings_order_by_book_name_label</item>
@@ -98,6 +141,7 @@
         <item>@string/settings_order_by_supplier_name_label</item>
     </string-array>
 
+    <!--String array with Order By values-->
     <string-array name="settings_order_by_values">
         <item>@string/settings_order_by_book_id_value</item>
         <item>@string/settings_order_by_book_name_value</item>
@@ -107,11 +151,13 @@
         <item>@string/settings_order_by_supplier_name_value</item>
     </string-array>
 
+    <!--String array with Sort Direction labels-->
     <string-array name="settings_sort_direction_labels">
         <item>@string/settings_sort_direction_asc_label</item>
         <item>@string/settings_sort_direction_desc_label</item>
     </string-array>
 
+    <!--String array with Sort Direction values-->
     <string-array name="settings_sort_direction_values">
         <item>@string/settings_sort_direction_asc_value</item>
         <item>@string/settings_sort_direction_desc_value</item>

@@ -1,6 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<!--
+  ~ Layout for BookEditActivity. Included in activity_editor.xml. Book, author, and supplier
+  names are fictitious.
+  -->
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editor_nested_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".BookEditActivity"
+    tools:showIn="@layout/activity_editor">
+
+    <LinearLayout
+        android:id="@+id/edit_fields_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/narrow_activity_margin"
+        android:orientation="vertical">
+        <!--Book Overview Section-->
+        <TextView
+            android:id="@+id/overview_section_heading"
+            style="@style/EditorSectionHeadingGreen"
+            android:layout_marginTop="@dimen/none"
+            android:text="@string/editor_section_book_details" />
+
+        <!--TextView which is only visible when user fails to fill out all the required fields-->
+        <TextView
+            android:id="@+id/error_textview_1"
+            style="@style/EditorErrorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/editor_null_fields_alert_highlight"
+            android:visibility="gone" />
+
+        <!--Book Name-->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_book_name"
+            style="@style/EditorTitleInputText"
+            android:hint="@string/formatted_column_book_name"
+            android:paddingBottom="@dimen/activity_margin"
+            app:hintEnabled="false"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+
+            <EditText
+                android:id="@+id/edit_book_name"
+                style="@style/EditorTitleTextStyle"
+                android:hint="@string/formatted_column_book_name"
+                android:inputType="textPersonName|textCapWords"
+                android:paddingBottom="@dimen/narrow_activity_margin" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--Author-->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_author"
+            style="@style/EditorTitleInputText"
+            android:layout_marginBottom="@dimen/divider_size"
+            android:paddingBottom="@dimen/activity_margin"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+
+            <EditText
+                android:id="@+id/edit_author"
+                style="@style/EditorTitleTextStyle"
+                android:layout_below="@id/text_input_book_name"
+                android:hint="@string/formatted_column_book_author"
+                android:inputType="textPersonName|textCapWords"
+                android:paddingBottom="@dimen/activity_margin" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--Genre Section-->
+        <TextView
+            android:id="@+id/genre_section_heading"
+            style="@style/EditorSectionHeadingGreen"
+            android:text="@string/formatted_column_book_genre" />
+
+        <!--Linear Layout With Spinner and instructions-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/divider_size"
+            android:background="@color/white_background"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingLeft="@dimen/spinner_left_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:paddingStart="@dimen/spinner_left_margin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/editor_section_spinner_tooltip"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/grey_text" />
+
+            <!-- Genre drop-down spinner -->
+            <Spinner
+                android:id="@+id/spinner_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/divider_size"
+                android:spinnerMode="dropdown"
+                android:textSize="@dimen/spinner_text_size"
+                tools:tooltipText="@string/formatted_column_book_genre" />
+        </LinearLayout>
+
+        <!--Inventory Section-->
+        <TextView
+            android:id="@+id/inventory_section_heading"
+            style="@style/EditorSectionHeadingGreen"
+            android:text="@string/editor_section_inventory_details" />
+
+        <!--Book Quantity-->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_quantity"
+            style="@style/EditorTextInput"
+            android:layout_marginBottom="@dimen/divider_size"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+
+            <EditText
+                android:id="@+id/edit_quantity"
+                style="@style/EditorFields_Centered"
+                android:digits="0123456789"
+                android:hint="@string/formatted_column_book_quantity"
+                android:inputType="number"
+                android:maxLength="4" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--Horizontal LinearLayout containing Sales and Price fields-->
+        <LinearLayout
+            android:id="@+id/price_sales_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/divider_size"
+            android:layout_marginTop="@dimen/divider_size"
+            android:baselineAligned="false">
+
+            <!--Sales Field-->
+            <android.support.design.widget.TextInputLayout
+                style="@style/EditorTextInputColumn"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/divider_size"
+                android:layout_marginRight="@dimen/divider_size"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/activity_margin"
+                app:counterEnabled="true"
+                app:counterMaxLength="8"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+
+                <EditText
+                    android:id="@+id/edit_sales"
+                    style="@style/EditorFields_Centered"
+                    android:digits="0123456789"
+                    android:hint="@string/formatted_column_book_sales"
+                    android:inputType="number"
+                    android:maxLength="4" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Price Field-->
+            <android.support.design.widget.TextInputLayout
+                style="@style/EditorTextInputColumn"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/divider_size"
+                android:layout_marginStart="@dimen/divider_size"
+                android:layout_weight="1"
+                android:paddingEnd="@dimen/activity_margin"
+                android:paddingRight="@dimen/activity_margin"
+                app:counterEnabled="true"
+                app:counterMaxLength="8"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+
+                <EditText
+                    android:id="@+id/edit_price"
+                    style="@style/EditorFields_Centered"
+                    android:digits="0123456789$.,"
+                    android:hint="@string/formatted_column_book_price"
+                    android:inputType="number"
+                    android:maxLength="8" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <!--Supplier Info Section-->
+        <TextView
+            android:id="@+id/supplier_section_heading"
+            style="@style/EditorSectionHeadingGreen"
+            android:text="@string/editor_section_supplier_details" />
+
+        <!--Supplier Name-->
+        <android.support.design.widget.TextInputLayout
+            style="@style/EditorTextInput"
+            android:layout_marginBottom="@dimen/divider_size"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+
+            <EditText
+                android:id="@+id/edit_supplier_name"
+                style="@style/EditorFields_Centered"
+                android:hint="@string/formatted_column_book_supplier_name"
+                android:inputType="textPersonName|textAutoComplete|textCapWords" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--Supplier Phone Number-->
+        <android.support.design.widget.TextInputLayout
+            style="@style/EditorTextInput"
+            android:layout_marginTop="@dimen/divider_size"
+            app:counterEnabled="true"
+            app:counterMaxLength="14"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+
+            <EditText
+                android:id="@+id/edit_supplier_phone"
+                style="@style/EditorFields_Centered"
+                android:digits="0123456789-()"
+                android:hint="@string/formatted_column_book_supplier_phone"
+                android:inputType="phone"
+                android:maxLength="14" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--TextView which is only visible when user fails to fill out all the required fields-->
+        <TextView
+            android:id="@+id/error_textview_2"
+            style="@style/EditorErrorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/editor_null_fields_alert_highlight"
+            android:visibility="gone" />
+
+        <!--Save / UpdateButton-->
+        <Button
+            android:id="@+id/save_button_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_button_height"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/divider_size"
+            android:background="@color/secondaryDarkColor"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/editor_save_button_text_size"
+            tools:text="@string/save_button_text" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
